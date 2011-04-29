@@ -1,3 +1,4 @@
+package jym.tel;
 // CatfoOD 2008.2.27
 
 import java.io.IOException;
@@ -9,12 +10,16 @@ import javax.swing.table.AbstractTableModel;
  * 表格内核模型
  */
 public class TelTableModel extends AbstractTableModel {
+	
+	private static final long serialVersionUID = 1365614389441957465L;
+	
 	private Object[][] tableData;
 	private String[] ColumnName;
 	private volatile int row;
 	private volatile int col;
 
 	private TableDataPack tdp;
+	
 	
 	public TelTableModel(TableDataPack tdp) {
 		this.tdp=tdp;
@@ -181,6 +186,7 @@ public class TelTableModel extends AbstractTableModel {
 		fireTableStructureChanged();
 	}
 	
+	@SuppressWarnings("unused")
 	private void printTable() {
 		for (int i=0; i<this.ColumnName.length; ++i) {
 			System.out.print(" "+ ColumnName[i]+"\t");

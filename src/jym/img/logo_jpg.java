@@ -1,4 +1,6 @@
-class logo_jpg{
+package jym.img;
+
+public class logo_jpg {
 	public static byte[] getImage() {
 		return image;
 	}

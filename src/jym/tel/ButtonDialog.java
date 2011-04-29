@@ -1,3 +1,4 @@
+package jym.tel;
 // CatfoOD 2008.2.27
 
 import java.awt.BorderLayout;
@@ -15,6 +16,9 @@ import javax.swing.JDialog;
 import javax.swing.table.TableModel;
 
 public class ButtonDialog extends JDialog implements ActionListener {
+	
+	private static final long serialVersionUID = 2303897754317744628L;
+	
 	public final int OK = 0;
 	public final int CANCEL = 1;
 	
@@ -25,9 +29,11 @@ public class ButtonDialog extends JDialog implements ActionListener {
 	private String selectName = "";
 	private Panel buttonPan;
 	
+	
 	public ButtonDialog(Frame f) {
 		this(f, "更改那一列?");
 	}
+	
 	public ButtonDialog(Frame f, String title) {
 		super(f, title, true);
 		setResizable(false);
@@ -113,7 +119,9 @@ public class ButtonDialog extends JDialog implements ActionListener {
 	}
 	
 	private class sButton extends JButton {
+		private static final long serialVersionUID = 6878374562331161300L;
 		public int index;
+		
 		sButton(String name, int i) {
 			super(name);
 			this.index=i;

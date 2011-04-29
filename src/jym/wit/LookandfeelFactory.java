@@ -1,11 +1,13 @@
+package jym.wit;
 // CatfoOD 2008.5.28
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.io.*;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
+import javax.swing.UIManager;
 
 /**
  * 使用了substance.jar这个包，
@@ -117,45 +119,9 @@ public class LookandfeelFactory {
 	}
 }
 
-class MItem extends JMenuItem implements ActionListener {
-	private String feelname;
-	private final String dot = "·";
-	private MItemGroup group = null;
-	
-	public MItem(String name) {
-		super(name);
-		feelname = name;
-		this.addActionListener(this);
-	}
-	
-	public String toString() {
-		return feelname;
-	}
-	
-	protected void inform() {
-		this.setText(feelname);
-	}
-
-	public void actionPerformed(ActionEvent arg0) {
-		this.setText(dot+feelname);
-		select = feelname;
-		if (group!=null) {
-			group.inform(this);
-		}
-	}
-	
-	protected void addGroup(MItemGroup g) {
-		group = g;
-	}
-	
-	public static String getSelectFeelName() {
-		return select;
-	}
-	private static String select=null;
-}
 
 class MItemGroup {
-	private ArrayList list = new ArrayList();
+	private ArrayList<MItem> list = new ArrayList<MItem>();
 	
 	public void add(MItem i) {
 		list.add(i);
@@ -165,7 +131,7 @@ class MItemGroup {
 	protected void inform(MItem item) {
 		for (int i=0; i<list.size(); ++i) {
 			if (list.get(i)!=item) {
-				((MItem)list.get(i)).inform();
+				list.get(i).inform();
 			}
 		}
 	}

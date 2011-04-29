@@ -1,3 +1,4 @@
+package jym.tel;
 // CatfoOD 2008.2.25
 
 import java.awt.Frame;
@@ -5,14 +6,21 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileFilter;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
-public class TelphoneBrowse extends JDialog implements ActionListener{
+import jym.img.icon1_gif;
+import jym.img.icon2_gif;
+import jym.img.icon3_gif;
+import jym.wit.InputDialog;
+import jym.wit.Tools;
+
+public class TelphoneBrowse extends JDialog implements ActionListener {
+	
+	private static final long serialVersionUID = -9120766113929166065L;
+	
 	private final int W = 100;
 	private final int H = 100;
 	private File result = null;
@@ -23,6 +31,7 @@ public class TelphoneBrowse extends JDialog implements ActionListener{
 	public static final int LIFT = 0;
 	/** Frame的右边 */
 	public static final int RIGHT = 1;
+	
 	
 	/**
 	 * 一个文件选择对话框, 默认在Frame的左边
@@ -92,7 +101,7 @@ public class TelphoneBrowse extends JDialog implements ActionListener{
 				return;
 			}catch(Exception eee) {
 				InputDialog input = new InputDialog(null, "输入密码", true);
-				if( input.getInput()==input.OK ) {
+				if( input.getInput()==InputDialog.OK ) {
 					try{
 						password = input.getResult();
 						new DecodeStream(result, password).close();
@@ -123,7 +132,10 @@ public class TelphoneBrowse extends JDialog implements ActionListener{
 	}
 	
 	private class fileButton extends JButton {
+		private static final long serialVersionUID = -4190542227252364014L;
 		private File file;
+		
+		
 		public fileButton(String name, File file) {
 			super(name, icon[iconIndex++]);
 			if(iconIndex>=3) iconIndex=0;
@@ -134,10 +146,12 @@ public class TelphoneBrowse extends JDialog implements ActionListener{
 			return file;
 		}
 	}
+	
 	private ImageIcon[] icon = {
 			new ImageIcon(icon1_gif.getImage()),
 			new ImageIcon(icon2_gif.getImage()),
 			new ImageIcon(icon3_gif.getImage()),
 	};
+	
 	private int iconIndex = 0;
 }

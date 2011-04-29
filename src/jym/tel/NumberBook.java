@@ -1,5 +1,8 @@
 // CatfoOD 2008.2.24
 
+package jym.tel;
+
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -20,7 +23,14 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.MenuEvent;
 
+import jym.wit.InputDialog;
+import jym.wit.MenuListenerAdapter;
+import jym.wit.Tools;
+
 public class NumberBook extends JInternalFrame implements ActionListener {
+	
+	private static final long serialVersionUID = -8261975812454620998L;
+	
 	private JTable table;
 	private TelTableModel telModel;
 	private SortModel sortModel;
@@ -30,6 +40,7 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 	
 	private JPopupMenu popMenu = new JPopupMenu();
 	private ML ml = new ML();
+	
 	
 	public NumberBook(TableDataPack tdp) throws Exception {
 		super("", true,true,true,true);
@@ -184,11 +195,13 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 	
 	// 状态栏
 	private class StateText extends JTextField implements Runnable {
+		private static final long serialVersionUID = 5310188383572543784L;
+
 		StateText() {
 			this.setEditable(false);
 			Thread t = new Thread(this);
 			t.setDaemon(true);
-			t.setPriority(t.MIN_PRIORITY);
+			t.setPriority(Thread.MIN_PRIORITY);
 			t.start();
 		}
 		
@@ -230,7 +243,9 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		}
 		
 		private class JMItem extends JMenuItem {
+			private static final long serialVersionUID = -6308665539500668163L;
 			int index;
+			
 			JMItem(String name, int itemIndex) {
 				super(name);
 				index = itemIndex;
@@ -312,7 +327,7 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		else if( e.getSource()==changename ) {
 			InputDialog input = new InputDialog(null, "新的名字", false);
 			input.setText(tdp.get().name);
-			if( input.getInput()==input.OK ) {
+			if( input.getInput()==InputDialog.OK ) {
 				if( input.getResult().length()>1 ){
 					tdp.get().name = input.getResult();
 					setTitle(tdp.get().name);
@@ -324,14 +339,14 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		// 改变密码
 		else if( e.getSource()==changepw ) {
 			InputDialog input = new InputDialog(null, "新的密码", true);
-			if( input.getInput()==input.OK ) {
+			if( input.getInput()==InputDialog.OK ) {
 				if( input.getResult().length()<1 ){
 					Tools.message("密码已经被删除,不使用密码.");
-					tdp.get().password = tdp.DEFAULTPASSWORD;
+					tdp.get().password = TableDataPack.DEFAULTPASSWORD;
 					return;
 				}else{
 					InputDialog rein = new InputDialog(null, "重新输入一遍", true);
-					if( rein.getInput()==rein.OK ) {
+					if( rein.getInput()==InputDialog.OK ) {
 						if( rein.getResult().compareTo( input.getResult() )==0 ) {
 							tdp.get().password = rein.getResult();
 							Tools.message("密码已经更改,下次登录请使用新的密码.");
@@ -398,21 +413,21 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		// 过滤
 		else if( e.getSource()==filter ) {
 			InputDialog in = new InputDialog(null, "输入包含的单词");
-			if( in.getInput()==in.OK ) {
+			if( in.getInput()==InputDialog.OK ) {
 				filterModel.IncludeWord( in.getResult() );
 			}
 		}
 		//
 		else if( e.getSource()==exclude ) {
 			InputDialog in = new InputDialog(null, "输入要滤除的单词");
-			if( in.getInput()==in.OK ) {
+			if( in.getInput()==InputDialog.OK ) {
 				filterModel.ExcludeWord( in.getResult() );
 			}
 		}
 		// 添加列
 		else if( e.getSource()==addRow ) {
 			InputDialog in = new InputDialog(null, "新列的名字");
-			if( in.getInput()==in.OK ) {
+			if( in.getInput()==InputDialog.OK ) {
 				String newcolumn = in.getResult().trim();
 				if (newcolumn!=null && newcolumn.length()>0) {
 					if ( !telModel.columnNameExits(newcolumn) ) {
@@ -440,7 +455,7 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 				ValidateDialog vd = new ValidateDialog(null, "'"+
 						bdg.getSelectedName()+ "' 列的所有数据都会丢失，确定么？");
 				
-				if (vd.getResult()==vd.OK) {
+				if (vd.getResult()==ValidateDialog.OK) {
 					telModel.removeColumn(bdg.getSelectedName());
 					table.setModel(telModel);
 				}
@@ -465,7 +480,7 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 					if( ts!=null && ts.trim().length()>0 ) {
 						ValidateDialog vd = 
 							new ValidateDialog(null,"选择的项目有内容了,要覆盖么?");
-						if (vd.getResult()==vd.OK) {
+						if (vd.getResult()==ValidateDialog.OK) {
 							break;
 						}else{
 							return;
@@ -474,7 +489,7 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 				}
 				// 输入列的内容
 				InputDialog ind = new InputDialog(null, "新的内容");
-				if ( ind.getInput()==ind.OK ) {
+				if ( ind.getInput()==InputDialog.OK ) {
 					String news = ind.getResult();
 					for(int x=0; x<select.length; ++x) {
 						telModel.setValueAt(news, select[x], c);
@@ -521,7 +536,7 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 	
 	private class ML extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
-			if ( e.getButton()==e.BUTTON3 ) {
+			if ( e.getButton()==MouseEvent.BUTTON3 ) {
 				popMenu.show((Component)e.getSource(), e.getX(), e.getY());
 			}else{
 				popMenu.setVisible(false);

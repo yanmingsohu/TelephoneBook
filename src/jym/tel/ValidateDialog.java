@@ -1,3 +1,4 @@
+package jym.tel;
 // CatfoOD 2008.2.26
 
 import java.awt.BorderLayout;
@@ -14,13 +15,14 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
  * 选择 是/否 对话框
  */
 public class ValidateDialog extends JDialog {
+	
+	private static final long serialVersionUID = -2207991857109781194L;
+	
 	private JButton ok = new JButton("   是   ");
 	private JButton cancel = new JButton("   否   ");
 	
@@ -30,6 +32,7 @@ public class ValidateDialog extends JDialog {
 	
 	private WA wa = new WA();
 	private int result = ERROR;
+	
 	
 	/**
 	 * 打开一个确认取消对话框

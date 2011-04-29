@@ -1,13 +1,12 @@
+package jym.wit;
 // CatfoOD 2008.2.27
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Panel;
@@ -19,13 +18,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JSeparator;
+
+import jym.img.logo_jpg;
+import jym.tel.VersionCortrol;
 
 
 public class AboutDialog extends JDialog implements ActionListener {
+	
+	private static final long serialVersionUID = -6337746095748402016L;
 	private JButton close;
 	private Image img = 
 		Toolkit.getDefaultToolkit().createImage(logo_jpg.getImage());
+	
 	
 	public AboutDialog(Frame f) {
 		super(f, "¹ØÓÚ.");
@@ -79,7 +83,7 @@ public class AboutDialog extends JDialog implements ActionListener {
 
 		g.drawString(s1, 500-l1, 205);
 		g.drawString(s2, 500-l2, 225);
-		g.drawString("Copyright CatfoOD 2008  yanming-sohu@sohu.com", 25, 290);
+		g.drawString("Copyright CatfoOD 2008-2011 " + VersionCortrol.net, 25, 290);
 		g.drawString("Telephone book. "+VersionCortrol.version, 25,310);
 		g.drawString("", 25, 330);
 		g.drawLine(0, 340, 550, 340);

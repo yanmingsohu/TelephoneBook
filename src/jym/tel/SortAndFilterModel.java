@@ -1,3 +1,4 @@
+package jym.tel;
 // CatfoOD 2008.2.26
 
 import java.util.Arrays;
@@ -11,9 +12,12 @@ import javax.swing.table.AbstractTableModel;
  * 表格排序模型
  */
 class SortModel extends AbstractTableModel implements TableModelListener {
+	
+	private static final long serialVersionUID = 6981192206330752408L;
 	private AbstractTableModel base;
 	private Row[] rows;
 	private int sortColumn = 0;
+	
 	
 	public SortModel(AbstractTableModel tablemodel) {
 		base = tablemodel;
@@ -60,7 +64,7 @@ class SortModel extends AbstractTableModel implements TableModelListener {
 		fireTableStructureChanged();
 	}
 	
-	private class Row implements Comparable {
+	private class Row implements Comparable<Object> {
 		public int index;
 		public Row(int c) {index=c;}
 		public int compareTo(Object o) {
@@ -101,6 +105,8 @@ class SortModel extends AbstractTableModel implements TableModelListener {
  * 表格过滤模型
  */
 class FilterModel extends AbstractTableModel implements TableModelListener {
+	
+	private static final long serialVersionUID = -2243887060202383321L;
 	private final int ALL = 0;
 	private final int INCLUDE = 1;
 	private final int EXCLUDE = 2;
@@ -109,6 +115,7 @@ class FilterModel extends AbstractTableModel implements TableModelListener {
 	private int[] rows;
 	private int state = ALL;
 	private String oldword;
+	
 	
 	public FilterModel(AbstractTableModel sortmodel) {
 		base = sortmodel;

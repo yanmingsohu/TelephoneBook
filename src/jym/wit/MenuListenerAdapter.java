@@ -1,3 +1,4 @@
+package jym.wit;
 // CatfoOD 2008.2.24
 
 import javax.swing.event.MenuEvent;

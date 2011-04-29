@@ -1,3 +1,4 @@
+package jym.tel;
 // CatfoOD 2008.2.24
 
 import java.awt.Color;
@@ -16,7 +17,16 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import jym.wit.AboutDialog;
+import jym.wit.InputDialog;
+import jym.wit.LookandfeelFactory;
+import jym.wit.MItem;
+import jym.wit.Tools;
+
 public class ManageFrame extends JFrame {
+	
+	private static final long serialVersionUID = -7064444390471903015L;
+	
 	private JDesktopPane jdp;
 	private Dimension dim;
 	private int x=0,y=0;
@@ -24,11 +34,12 @@ public class ManageFrame extends JFrame {
 	
 	public final KL keyListener = new KL();
 	
+	
 	public ManageFrame() {
 		dim = Toolkit.getDefaultToolkit().getScreenSize();
 		dim.height -= 100;
 		dim.width -= 100;
-		this.setTitle("电话簿 CatfoOD 2008   "+VersionCortrol.version);
+		this.setTitle("电话簿 CatfoOD 2008-2011   "+VersionCortrol.version);
 		this.setBounds(50, 50, dim.width, dim.height);
 		this.addWindowListener(new WL());
 		this.addKeyListener(keyListener);
@@ -213,7 +224,7 @@ public class ManageFrame extends JFrame {
 				JFileChooser chooser = new JFileChooser();
 				FileFilter filter = new FileNameExtensionFilter("电话簿文档 *.tel", "tel");
 				chooser.setFileFilter(filter);
-				if ( chooser.showOpenDialog(frame)==chooser.APPROVE_OPTION  ) {
+				if ( chooser.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION  ) {
 					String password = TableDataPack.DEFAULTPASSWORD;
 					File f = chooser.getSelectedFile();
 					if ( testFileOpened(f) ) return;
@@ -222,7 +233,7 @@ public class ManageFrame extends JFrame {
 						new DecodeStream(f, password).close();
 					}catch(Exception eee) {
 						InputDialog input = new InputDialog(frame, "输入密码", true);
-						if( input.getInput()==input.OK ) {
+						if( input.getInput()==InputDialog.OK ) {
 							password = input.getResult();
 						}else{
 							return;
@@ -263,7 +274,7 @@ public class ManageFrame extends JFrame {
 				if ( f!=null ) {
 					ValidateDialog confirm = 
 						new ValidateDialog(frame, "真的要删除电话簿: "+tb.getName()+" ?" );
-					if( confirm.getResult()==confirm.OK ) {
+					if( confirm.getResult()==ValidateDialog.OK ) {
 						if( f.delete() ) {
 							Tools.message("已经删除电话本: "+tb.getName()+"\nlocal file: "+f.toString());
 						}else{
@@ -281,14 +292,14 @@ public class ManageFrame extends JFrame {
 				
 				String password = null;
 				InputDialog input = new InputDialog(frame, "新建电话簿密码", true);
-				if( input.getInput()==input.OK ) {
+				if( input.getInput()==InputDialog.OK ) {
 					password = input.getResult();
 					if( password.length()<1 ) {
 						password = "jym";
 						Tools.message("不使用密码.");
 					}else{
 						InputDialog input2 = new InputDialog(frame, "验证密码", true);
-						if( input2.getInput()==input2.OK ) {
+						if( input2.getInput()==InputDialog.OK ) {
 							if( input2.getResult().compareTo(password)!=0 ) {
 								Tools.message("密码验证错误.");
 								return;
@@ -387,10 +398,6 @@ public class ManageFrame extends JFrame {
 		}
 	}
 	
-	private void p(Object o) {
-		System.out.println(o);
-	}
-	
 	private void quit() {
 		setVisible(false);
 		LookandfeelFactory.saveConfig();
@@ -409,7 +416,7 @@ public class ManageFrame extends JFrame {
 	
 	private class KL extends KeyAdapter {
 		public void keyPressed(KeyEvent ke) {
-			if( ke.getKeyCode()==ke.VK_F1 ) {
+			if( ke.getKeyCode()==KeyEvent.VK_F1 ) {
 				ActionEvent ae = new ActionEvent(exits, 0, null);
 				ml.actionPerformed(ae);
 			}

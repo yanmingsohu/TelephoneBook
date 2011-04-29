@@ -1,4 +1,7 @@
-import javax.swing.UIManager;
+import jym.tel.ManageFrame;
+import jym.wit.AboutDialog;
+import jym.wit.LookandfeelFactory;
+
 
 
 public class mainc {

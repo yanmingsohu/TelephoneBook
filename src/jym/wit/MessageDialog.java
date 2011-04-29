@@ -1,14 +1,12 @@
+package jym.wit;
 // CatfoOD 2008.2.7
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.Label;
 import java.awt.Panel;
-import java.awt.TextArea;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,14 +16,18 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 /**
  * 便捷显示消息的类,建立后调用 show(Title, Text) 方法.
  * @author CatfoOD
  */
 public class MessageDialog extends JDialog {
+	
+	private static final long serialVersionUID = 3734223734096180986L;
+	
 	private JLabel  label  = new JLabel();
 	private JButton button = new JButton("     确定     ");
 	private JButton about  = new JButton(" 详细信息 ");
@@ -121,7 +123,10 @@ public class MessageDialog extends JDialog {
 }
 
 class MoreDialog extends JDialog {
+	
+	private static final long serialVersionUID = -129334176791898267L;
 	private JTextArea t = new JTextArea();
+	
 	
 	MoreDialog(Dialog d) {
 		super(d, "详细信息", true);
@@ -140,8 +145,8 @@ class MoreDialog extends JDialog {
 		setBounds(x, y, width, height);
 		
 		JScrollPane s = new JScrollPane(t);
-		s.setHorizontalScrollBarPolicy( s.HORIZONTAL_SCROLLBAR_NEVER );
-		s.setVerticalScrollBarPolicy( s.VERTICAL_SCROLLBAR_AS_NEEDED );
+		s.setHorizontalScrollBarPolicy( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+		s.setVerticalScrollBarPolicy( ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED );
 		setLayout(new BorderLayout());
 		add(s, BorderLayout.CENTER);
 		add(b, BorderLayout.SOUTH);

@@ -1,4 +1,5 @@
-class icon2_gif{
+package jym.img;
+public class icon2_gif {
 	public static byte[] getImage() {
 		return image;
 	}

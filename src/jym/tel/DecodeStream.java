@@ -1,6 +1,5 @@
+package jym.tel;
 // CatfoOD 2008.2.7  大年初一 :)
-
-import javax.sound.sampled.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,9 +13,11 @@ import java.security.NoSuchAlgorithmException;
  * 使用时用DecodeStream替换InputStream
  */
 public class DecodeStream extends InputStream{
+	
 	private String bookname;
 	private long fileLength = 0;
 	private boolean closed = false;
+	
 	
 	public DecodeStream(File f, String password) throws IOException {
 		fi = new FileInputStream(f);

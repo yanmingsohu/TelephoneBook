@@ -1,7 +1,7 @@
+package jym.wit;
 // CatfoOD 2008.2.25
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -9,8 +9,6 @@ import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -19,11 +17,15 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  * 输入对话框
  */
 public class InputDialog extends JDialog {
+	
+	private static final long serialVersionUID = -9142246621039344159L;
+	
 	private JButton ok = new JButton("确定");
 	private JButton cancel = new JButton("取消");
 	private JTextField text;
@@ -36,6 +38,7 @@ public class InputDialog extends JDialog {
 	public static final int OK = 1;
 	public static final int CANCEL = 2;
 	public static final int TEXT_WEIGHT = 15;
+	
 	
 	/** 新建一个有模式对话框 */
 	public InputDialog(Frame f, String message) {
@@ -67,7 +70,7 @@ public class InputDialog extends JDialog {
 		}
 		pan2 = new Panel(null);
 		JLabel jl = new JLabel(message);
-		jl.setHorizontalAlignment(jl.RIGHT);
+		jl.setHorizontalAlignment(SwingConstants.RIGHT);
 		jl.setBounds(10, 10, 110, 20);
 		text.setBounds(130, 10, 140, 20);
 		pan2.add(jl);

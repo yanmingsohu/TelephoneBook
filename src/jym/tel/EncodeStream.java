@@ -1,10 +1,9 @@
+package jym.tel;
 // CatfoOD 2008.2.24
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,11 +13,14 @@ import java.security.NoSuchAlgorithmException;
  * 对数据加密,用CodingStream替换OutputStream
  */
 public class EncodeStream extends OutputStream {
+	
 	private byte[] SECERN = {	(byte)0xef,(byte)0xaa,0x3f,(byte)0x86,
 								0x1a,(byte)0xff,(byte)0xff,0x00,
 								};
+	
 	private FileOutputStream fo;
 	private byte[] pw;
+	
 	
 	/**
 	 * 初始化加密流
