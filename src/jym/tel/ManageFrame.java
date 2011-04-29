@@ -17,6 +17,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import jym.vcf.VcfDataPack;
 import jym.wit.AboutDialog;
 import jym.wit.InputDialog;
 import jym.wit.LookandfeelFactory;
@@ -132,6 +133,7 @@ public class ManageFrame extends JFrame {
 	private JMenuItem file;
 	private JMenuItem del;
 	private JMenuItem exits;
+	private JMenuItem ivcf;
 	private JMenuItem creat;
 	private JMenuItem quit;
 	
@@ -154,15 +156,17 @@ public class ManageFrame extends JFrame {
 	private JMenuBar creatMenu() {
 		JMenuBar menubar = new JMenuBar();
 		
-		open  = new JMenu("文件");
-		exits = CreatMenuItem("打开已有的电话簿..");
-		del   = CreatMenuItem("删除已有的电话簿..");
-		file  = CreatMenuItem("从选择的文件打开电话簿..");
-		creat = CreatMenuItem("新建一个电话簿..");
-		quit  = CreatMenuItem("退出  Alt+F4");
+		open  	= new JMenu("文件");
+		exits	= CreatMenuItem("打开已有的电话簿..");
+		del		= CreatMenuItem("删除已有的电话簿..");
+		file	= CreatMenuItem("从选择的文件打开电话簿..");
+		creat	= CreatMenuItem("新建一个电话簿..");
+		ivcf	= CreatMenuItem("导入VCF(Android)文件..");
+		quit 	= CreatMenuItem("退出  Alt+F4");
 		open.add(exits);
 		open.add(creat);
 		open.add(file);
+		open.add(ivcf);
 		open.addSeparator();
 		open.add(del);
 		open.addSeparator();
@@ -219,11 +223,14 @@ public class ManageFrame extends JFrame {
 	private class MenuListen implements ActionListener {
 		
 		public void actionPerformed(ActionEvent e) {
+			final Object src = e.getSource();
+			
 			// 从文件打开
-			if(e.getSource()==file) {
+			if(src==file) {
 				JFileChooser chooser = new JFileChooser();
 				FileFilter filter = new FileNameExtensionFilter("电话簿文档 *.tel", "tel");
 				chooser.setFileFilter(filter);
+				
 				if ( chooser.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION  ) {
 					String password = TableDataPack.DEFAULTPASSWORD;
 					File f = chooser.getSelectedFile();
@@ -250,7 +257,7 @@ public class ManageFrame extends JFrame {
 				}
 			}
 			// 打开现有的
-			else if(e.getSource()==exits) {
+			else if(src==exits) {
 				TelphoneBrowse tb = new TelphoneBrowse(frame, "打开一个电话簿..");
 				File f = tb.getResult();
 				if ( testFileOpened(f) ) return;
@@ -265,8 +272,25 @@ public class ManageFrame extends JFrame {
 					}
 				}
 			}
+			// 导入VCF文件
+			else if (src==ivcf) {
+				JFileChooser chooser = new JFileChooser();
+				FileFilter filter = new FileNameExtensionFilter("Android电话簿文件 *.vcf", "vcf");
+				chooser.setFileFilter(filter);
+				
+				if ( chooser.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION  ) {
+					File f = chooser.getSelectedFile();
+					
+					try{
+						VcfDataPack vcf = new VcfDataPack(f);
+						creatInframe(vcf);
+					}catch(Exception ee){
+						Tools.println(ee);
+					}
+				}
+			}
 			// 删除现有的 
-			else if(e.getSource()==del) {
+			else if(src==del) {
 				TelphoneBrowse tb = 
 					new TelphoneBrowse(frame, "删除一个电话簿!!",TelphoneBrowse.RIGHT);
 				File f = tb.getResult();
@@ -284,14 +308,10 @@ public class ManageFrame extends JFrame {
 				}
 			}
 			// 新建
-			else if(e.getSource()==creat) {
-				File filename;
-				do{
-					filename = new File( getRandString()+".tel" );
-				}while(filename.exists());
-				
+			else if(src==creat) {
 				String password = null;
 				InputDialog input = new InputDialog(frame, "新建电话簿密码", true);
+				
 				if( input.getInput()==InputDialog.OK ) {
 					password = input.getResult();
 					if( password.length()<1 ) {
@@ -313,10 +333,10 @@ public class ManageFrame extends JFrame {
 					return;
 				}
 
-				TableDataPack data = TableDataPack.creatDeafultData(filename);
+				TableDataPack data = TableDataPack.creatDeafultData();
 				data.get().password = password;
 				try{
-					filename.createNewFile();
+					data.get().file.createNewFile();
 					data.write(data.get());
 					creatInframe(data);
 				}catch(Exception ee){
@@ -324,7 +344,7 @@ public class ManageFrame extends JFrame {
 				}
 			}
 			// 平铺
-			else if(e.getSource()==tile) {
+			else if(src==tile) {
 				removeClosedFrame();
 				int cols = (int)Math.sqrt(inFrameCont);
 				int rows = inFrameCont / cols;
@@ -352,7 +372,7 @@ public class ManageFrame extends JFrame {
 				}
 			}
 			// 层叠
-			else if(e.getSource()==cascade) {
+			else if(src==cascade) {
 				removeClosedFrame();
 				int x=0,y=0,
 					w=(int)(dim.width*0.7f),
@@ -371,27 +391,27 @@ public class ManageFrame extends JFrame {
 				}
 			}
 			// 关闭所有
-			else if( e.getSource()==removeall ) {
+			else if( src==removeall ) {
 				removeAllFrame();
 			}
-			else if( e.getSource()==about ) {
+			else if( src==about ) {
 				new AboutDialog(frame);
 			}
-			else if( e.getSource()==help) {
+			else if( src==help) {
 				Tools.functionNotComplete();
 			}
 			// 退出
-			else if(e.getSource()==quit) {
+			else if(src==quit) {
 				quit();
 			}
 			// 改变外观
-			else if (e.getSource()==swingfeel) {
+			else if (src==swingfeel) {
 				LookandfeelFactory.setSwingLookandFeel();
 			}
-			else if (e.getSource()==nativefeel) {
+			else if (src==nativefeel) {
 				LookandfeelFactory.setNativeLookandFeel();
 			}
-			else if (e.getSource() instanceof MItem) {
+			else if (src instanceof MItem) {
 				String feelname = e.getSource().toString();
 				LookandfeelFactory.setStanceFeel(feelname);
 			}
@@ -423,12 +443,4 @@ public class ManageFrame extends JFrame {
 		}
 	}
 	
-	public static String getRandString() {
-		char[] str = new char[16];
-		int i=0;
-		while( i<str.length ) {
-			str[i++]=(char)(Math.random()*26+'a');
-		}
-		return new String(str);
-	}
 }

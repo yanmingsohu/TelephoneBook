@@ -4,13 +4,17 @@ package jym.tel;
 import java.io.File;
 import java.io.IOException;
 
+import jym.wit.Tools;
+
 public class TableDataPack {
+	
 	private Data d;
 	
 	public static final String[] DEFALUTNAME = {
 		"姓名","手机","家庭电话","关系","住址","日期","其他",
 	};
 	public static final String DEFAULTPASSWORD = "jym";
+	
 	
 	public TableDataPack() {
 		d = new Data();
@@ -19,6 +23,7 @@ public class TableDataPack {
 		d = new Data();
 		d.file = f;
 	}
+	
 	/**
 	 * 返回 Data 的引用;
 	 * @return Data
@@ -31,20 +36,21 @@ public class TableDataPack {
 	 * 建立一个默认的DataPack;
 	 * @return TableDataPack实列
 	 */
-	public static TableDataPack creatDeafultData(File f) {
+	public static TableDataPack creatDeafultData() {
 		TableDataPack data = new TableDataPack();
 		TableDataPack.Data d = data.get();
-		d.columnName = DEFALUTNAME;
-		d.columnCount= d.columnName.length;
-		d.rowCount = 5;
-		d.data = new Object[d.rowCount][d.columnCount];
-		d.file = f;
-		d.name = "我的电话簿";
-		d.password = DEFAULTPASSWORD;
+		
+		d.columnName 	= DEFALUTNAME;
+		d.columnCount	= d.columnName.length;
+		d.rowCount 		= 5;
+		d.data 			= new Object[d.rowCount][d.columnCount];
+		d.file 			= Tools.getRandFile();
+		d.name 			= "我的电话簿";
+		d.password		= DEFAULTPASSWORD;
 		
 		return data;
 	}
-	
+
 	/**
 	 * 写入
 	 */
