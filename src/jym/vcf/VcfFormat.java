@@ -6,14 +6,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import jym.wit.Tools;
 
@@ -23,21 +22,21 @@ public class VcfFormat {
 	private final static String START = "BEGIN:VCARD";
 	private final static String END = "END:VCARD";
 	private List<Contact> rows;
-	private int line_c = 1;
 	private Set<String> columns;
+	private int line_c = 1;
 	private File file;
 
 	
-	public VcfFormat(File f) throws IOException {
-		file = f;
-		BufferedReader in = new BufferedReader(new FileReader(f));
+	public VcfFormat(File _file) throws IOException {
+		file = _file;
+		BufferedReader in = new BufferedReader(new FileReader(_file));
 		parse(in);
 	}
 	
 	private void parse(BufferedReader in) throws IOException {
 		String line = in.readLine();
 		rows = new ArrayList<Contact>();
-		columns = new HashSet<String>();
+		columns = new TreeSet<String>(new Type.Sorter());
 		
 		while (line!=null) {
 			if (line.equalsIgnoreCase(START)) {
@@ -46,6 +45,13 @@ public class VcfFormat {
 			}
 			line = in.readLine();
 			line_c++;
+		}
+	}
+	
+	public void out(Appendable out) throws IOException {
+		Iterator<Contact> itr = rows.iterator();
+		while (itr.hasNext()) {
+			itr.next().out(out);
 		}
 	}
 	
@@ -72,7 +78,7 @@ public class VcfFormat {
 		private Map<String, Item> map;
 		
 		
-		public Contact (BufferedReader in) throws IOException {
+		public Contact(BufferedReader in) throws IOException {
 			String line = in.readLine();
 			line_c++;
 			items = new ArrayList<Item>();
@@ -80,12 +86,17 @@ public class VcfFormat {
 			
 			while (line!=null && line.equalsIgnoreCase(END)==false) {
 				Item i = new Item(line);
-				items.add(i);
-				map.put(i.getName(), i);
+				addItem(i);
 				
 				line = in.readLine();
 				line_c++;
 			}
+		}
+		
+		private void addItem(Item i) {
+			i._c = this;
+			items.add(i);
+			map.put(i.getName(), i);
 		}
 		
 		public List<Item> getItems() {
@@ -94,6 +105,19 @@ public class VcfFormat {
 		
 		public Item getItem(String name) {
 			return map.get(name);
+		}
+		
+		public void out(Appendable out) throws IOException {
+			Iterator<Item> itr = items.iterator();
+			
+			if (itr.hasNext()) {
+				out.append(START).append('\n');
+				while (itr.hasNext()) {
+					Item item = itr.next();
+					item.out(out);
+				}
+				out.append(END).append('\n');
+			}
 		}
 	}
 	
@@ -104,7 +128,10 @@ public class VcfFormat {
 		private String name;
 		private Map<String, String> props;
 		private String type;
+		private Contact _c;
 		
+
+		private Item() {}
 		
 		private Item(String line) throws IOException {
 			String[] _t = line.split(":");
@@ -114,10 +141,8 @@ public class VcfFormat {
 			set(_t[0], _t[1]);
 		}
 		
-		private Item() {}
-		
 		private void set(String prop, String value) {
-			values = value.split(";");
+			values = value.split(";", -1);
 			
 			String[] _n = prop.split(";");
 			props = new HashMap<String, String>();
@@ -138,7 +163,7 @@ public class VcfFormat {
 			}
 			
 			initName(_n[0]);
-			encode();
+			QuotedCoder.decode(props, values);
 		}
 		
 		private void initName(String _name) {
@@ -157,54 +182,89 @@ public class VcfFormat {
 			name = cname==null ? _name : cname + _name;
 			if (name!=null) columns.add(name);
 		}
-
-		private void encode() {
-			String encoding = props.get("ENCODING");
-			if ("QUOTED-PRINTABLE".equalsIgnoreCase(encoding)) {
-				String charset = props.get("CHARSET");
-				if (charset==null) {
-					charset = "UTF-8";
-				}
-				
-				for (int i=0; i<values.length; ++i) {
-					values[i] = quoted2string(values[i], charset);
-				}
-			}
-		}
-		
-		private String quoted2string(String str, String charset) {
-			String[] _t = str.split("=");
-			byte[] _b = new byte[_t.length-1];
-			
-			for (int i=1; i<_t.length; ++i) {
-				_b[i-1] = (byte) Integer.parseInt(_t[i], 16);
-			}
-			
-			try {
-				return new String(_b, charset);
-			} catch (UnsupportedEncodingException e) {
-				return null;
-			}
-		}
 		
 		public String toString() {
 			StringBuilder value = new StringBuilder();
 			
 			for (int i=0; i<values.length; ++i) {
-				if (Tools.notNull(values[i]))
-					value.append(values[i]).append(",");
+				if (Tools.notNull(values[i])) {
+					value.append(values[i]);
+					if (i+1 < values.length) {
+						value.append(", ");
+					}
+				}
 			}
 			
 			return value.toString();
 		}
 		
-		public Item copy() {
+		/**
+		 * 复制当前项目,并把新项目与联系人关联
+		 * @param rowItem - 同一行的另一个Item
+		 * @return
+		 */
+		public Item copy(Item rowItem) {
+			if (rowItem._c==null) {
+				throw new NullPointerException("rowItem未指定Contact");
+			}
+
 			Item i = new Item();
 			i.name = name;
 			i.type = type;
 			i.props = props;
 			i.values = new String[values.length];
+			
+			rowItem._c.addItem(i);
 			return i;
+		}
+		
+		public void out(Appendable out) throws IOException {
+			if (cannotSave()) return;
+			
+			String[] c_values = QuotedCoder.encode(props, values);
+			out.append(type);
+			
+			Iterator<String> itr = props.keySet().iterator();
+			while (itr.hasNext()) {
+				String key = itr.next();
+				String value = props.get(key);
+				out.append(';');
+				out.append(key);
+				if (value!=null) {
+					out.append('=');
+					out.append(value);
+				}
+			}
+			
+			out.append(':');
+			delNull(c_values);
+			
+			if (c_values.length>0) {
+				out.append(c_values[0]);
+				for (int i=1; i<c_values.length; ++i) {
+					out.append(';');
+					out.append(c_values[i]);
+				}
+			}
+			
+			out.append('\n');
+		}
+		
+		private boolean cannotSave() {
+			for (int i=0; i<values.length; ++i) {
+				if (values[i]!=null) {
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		private void delNull(String[] s) {
+			for (int i=0; i<s.length; ++i) {
+				if (s[i]==null) {
+					s[i] = "";
+				}
+			}
 		}
 
 		public final String[] getValues() {

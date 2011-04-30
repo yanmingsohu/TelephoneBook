@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project TelephoneBook">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+	<property name="out_dir" 	  value="${basedir}/WEB-INF/classes"/>
+	
+    <target name="create_run_jar">
+        <jar destfile="${basedir}/tel.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="mainc"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${basedir}/bin"/>
+        </jar>
+    </target>
+</project>

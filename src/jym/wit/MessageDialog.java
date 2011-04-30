@@ -111,6 +111,7 @@ public class MessageDialog extends JDialog {
 				setVisible(false);
 			}else if(e.getSource()==about) {
 				showMore();
+				setVisible(false);
 			}
 		}
 	}

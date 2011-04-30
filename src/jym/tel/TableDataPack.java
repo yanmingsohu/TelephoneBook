@@ -160,6 +160,7 @@ public class TableDataPack {
 		b[0] = (byte)( (i&0x000000ff) );
 		return b;
 	}
+	
 	public static int bytesToint(byte[] b) {
 		int i = b[0];
 		i += toInt( b[1] ) << 8;
@@ -168,7 +169,7 @@ public class TableDataPack {
 		return i;
 	}
 	
-	private static final int toInt(byte b){
+	public static final int toInt(byte b){
 		int r = 0;
 		if (b<0) r = 256 + b;
 		else r = (int)b;
