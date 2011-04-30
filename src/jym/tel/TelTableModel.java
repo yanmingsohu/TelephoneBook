@@ -22,7 +22,7 @@ public class TelTableModel extends AbstractTableModel {
 	
 	
 	public TelTableModel(TableDataPack tdp) {
-		this.tdp=tdp;
+		this.tdp = tdp;
 	}
 	
 	/** 列的数量 */
@@ -49,13 +49,14 @@ public class TelTableModel extends AbstractTableModel {
 	public int getColumnIndex(String CName) {
 		int i=0;
 		boolean finded = false;
+		
 		for(i=0; i<col; ++i) {
 			if( ColumnName[i].compareToIgnoreCase(CName)==0 ) {
 				finded=true;
 				break;
 			}
 		}
-		return finded?i:-1;
+		return finded? i: -1;
 	}
 	
 	/** 行的数量 */
@@ -237,6 +238,15 @@ public class TelTableModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 	
+	@Override
+	public Class<?> getColumnClass(int columnIndex) {
+		if (tableData!=null && tableData[0]!=null && tableData[0][columnIndex]!=null) {
+			return tableData[0][columnIndex].getClass();
+		} else {
+			return Object.class;
+		}
+	}
+
 	/** 清空所有对象,释放内存 */
 	public void quit() {
 		tableData = null;

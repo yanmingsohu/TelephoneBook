@@ -22,6 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.MenuEvent;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 
 import jym.wit.InputDialog;
 import jym.wit.MenuListenerAdapter;
@@ -53,11 +55,23 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		telModel.readData();
 		setTitle(tdp.get().name);
 		
-		sortModel= new SortModel(telModel);
-		filterModel=new FilterModel(sortModel);
+		sortModel = new SortModel(telModel);
+		filterModel =new FilterModel(sortModel);
 		
 		table = new JTable(filterModel);
 		table.addMouseListener(ml);
+		
+		tdp.setEditor(new IEditorSet() {
+			@Override
+			public void set(Class<?> c, TableCellEditor editor) {
+				table.setDefaultEditor(c, editor);
+			}
+			@Override
+			public void set(Class<?> c, TableCellRenderer rand) {
+				table.setDefaultRenderer(c, rand);
+			}
+		});
+		
 		JScrollPane pane = new JScrollPane(table);
 		pane.addMouseListener(ml);
 		stateText = new StateText();
@@ -300,6 +314,8 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 			stateText = null;
 			popMenu = null;
 			ml = null;
+			
+			this.dispose();
 		}catch(Exception er){
 			Tools.println(er);
 		}

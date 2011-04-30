@@ -10,9 +10,12 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import jym.wit.Tools;
 
 
 public class VcfFormat {
@@ -100,6 +103,7 @@ public class VcfFormat {
 		private String[] values;
 		private String name;
 		private Map<String, String> props;
+		private String type;
 		
 		
 		private Item(String line) throws IOException {
@@ -110,12 +114,12 @@ public class VcfFormat {
 			set(_t[0], _t[1]);
 		}
 		
+		private Item() {}
+		
 		private void set(String prop, String value) {
 			values = value.split(";");
 			
 			String[] _n = prop.split(";");
-			name = _n[0];
-			columns.add(name);
 			props = new HashMap<String, String>();
 			
 			if (_n.length>1) {
@@ -133,9 +137,27 @@ public class VcfFormat {
 				}
 			}
 			
+			initName(_n[0]);
 			encode();
 		}
 		
+		private void initName(String _name) {
+			String cname = null;
+			type = _name;
+			_name = Type.get(_name);
+			
+			Iterator<String> itr = props.keySet().iterator();
+			while (itr.hasNext()) {
+				cname = Type.get(itr.next());
+				if (cname!=null) {
+					break;
+				}
+			}
+			
+			name = cname==null ? _name : cname + _name;
+			if (name!=null) columns.add(name);
+		}
+
 		private void encode() {
 			String encoding = props.get("ENCODING");
 			if ("QUOTED-PRINTABLE".equalsIgnoreCase(encoding)) {
@@ -164,9 +186,33 @@ public class VcfFormat {
 				return null;
 			}
 		}
+		
+		public String toString() {
+			StringBuilder value = new StringBuilder();
+			
+			for (int i=0; i<values.length; ++i) {
+				if (Tools.notNull(values[i]))
+					value.append(values[i]).append(",");
+			}
+			
+			return value.toString();
+		}
+		
+		public Item copy() {
+			Item i = new Item();
+			i.name = name;
+			i.type = type;
+			i.props = props;
+			i.values = new String[values.length];
+			return i;
+		}
 
 		public final String[] getValues() {
 			return values;
+		}
+		
+		public final void setValue(int index, String value) {
+			values[index] = value;
 		}
 
 		public final String getName() {
@@ -175,6 +221,10 @@ public class VcfFormat {
 
 		public final Map<String, String> getProps() {
 			return props;
+		}
+
+		public String getType() {
+			return type;
 		}
 	}
 }

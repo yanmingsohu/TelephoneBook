@@ -67,20 +67,24 @@ class SortModel extends AbstractTableModel implements TableModelListener {
 	private class Row implements Comparable<Object> {
 		public int index;
 		public Row(int c) {index=c;}
+		
 		public int compareTo(Object o) {
 			Row r = (Row)o;
 			Object a = base.getValueAt(index, sortColumn);
 			Object b = base.getValueAt(r.index, sortColumn);
 
-			if(a==null || a.toString()=="" || a.toString()=="null") {
-				if(b==null || b.toString()=="" || b.toString()=="null") return 0;
+			if(isNull(a)) {
+				if(isNull(b)) return 0;
 				else return 1;
 			}
-			if(b==null || b.toString()=="" || b.toString()=="null") {
+			if(isNull(b)) {
 				return -1;
 			}
 			
 			return a.toString().compareTo(b.toString());
+		}
+		boolean isNull(Object o) {
+			return o==null || o.toString()=="" || o.toString()=="null";
 		}
 	}
 	

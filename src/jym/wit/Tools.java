@@ -1,7 +1,10 @@
 package jym.wit;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
-// CatfoOD 2008.2.24
+
+import javax.swing.JDialog;
 
 public class Tools {
 	private Tools() {}
@@ -30,6 +33,10 @@ public class Tools {
 		return new String(str);
 	}
 	
+	public static boolean notNull(String s) {
+		return s!=null && s.trim().length()>0;
+	}
+	
 	public static File getRandFile() {
 		File file;
 		do{
@@ -42,5 +49,14 @@ public class Tools {
 	public static void functionNotComplete() {
 		md.show("作者太懒，功能尚未实现.\n需要获取更多功能，请与作者联系:" +
 				"yanming-sohu@sohu.com\nqq:412475540");
+	}
+	
+	public static void center(JDialog w) {
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = w.getWidth();
+		int height= w.getHeight();
+		int x = (int)( (dim.width-width)/2 );
+		int y = (int)( (dim.height-height)/2);
+		w.setBounds(x, y, width, height);
 	}
 }

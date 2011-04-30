@@ -2,18 +2,19 @@ package jym.tel;
 // CatfoOD 2008.2.27
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Panel;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JScrollPane;
 import javax.swing.table.TableModel;
+
+import jym.wit.Tools;
 
 public class ButtonDialog extends JDialog implements ActionListener {
 	
@@ -45,8 +46,10 @@ public class ButtonDialog extends JDialog implements ActionListener {
 		cancel.addActionListener(this);
 		pan.add(cancel);
 		
+		JScrollPane buttons = new JScrollPane(buttonPan);
+		
 		setLayout(new BorderLayout());
-		add(buttonPan, BorderLayout.CENTER);
+		add(buttons, BorderLayout.CENTER);
 		add(pan, BorderLayout.SOUTH);
 	}
 	
@@ -79,14 +82,11 @@ public class ButtonDialog extends JDialog implements ActionListener {
 	 * @return OK, CANCEL
 	 */
 	public int showButtonDialog() {
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = 300;
-		int height= 55*buttonCount;
-		int x = (int)( (dim.width-width)/2 );
-		int y = (int)( (dim.height-height)/2);
+		int height= 600;
+		setSize(width, height);
 		
-		setBounds(x, y, width, height);
-		
+		Tools.center(this);
 		setVisible(true);
 		return result;
 	}
@@ -124,7 +124,8 @@ public class ButtonDialog extends JDialog implements ActionListener {
 		
 		sButton(String name, int i) {
 			super(name);
-			this.index=i;
+			this.index = i;
+			setSize(300, 55);
 		}
 	}
 }

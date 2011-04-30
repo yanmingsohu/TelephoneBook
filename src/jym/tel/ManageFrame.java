@@ -40,7 +40,7 @@ public class ManageFrame extends JFrame {
 		dim = Toolkit.getDefaultToolkit().getScreenSize();
 		dim.height -= 100;
 		dim.width -= 100;
-		this.setTitle("电话簿 CatfoOD 2008-2011   "+VersionCortrol.version);
+		this.setTitle("电话簿 CatfoOD 2008-2011 " + VersionCortrol.version);
 		this.setBounds(50, 50, dim.width, dim.height);
 		this.addWindowListener(new WL());
 		this.addKeyListener(keyListener);
@@ -161,7 +161,7 @@ public class ManageFrame extends JFrame {
 		del		= CreatMenuItem("删除已有的电话簿..");
 		file	= CreatMenuItem("从选择的文件打开电话簿..");
 		creat	= CreatMenuItem("新建一个电话簿..");
-		ivcf	= CreatMenuItem("导入VCF(Android)文件..");
+		ivcf	= CreatMenuItem("打开VCF(Android)电话簿..");
 		quit 	= CreatMenuItem("退出  Alt+F4");
 		open.add(exits);
 		open.add(creat);
@@ -280,6 +280,7 @@ public class ManageFrame extends JFrame {
 				
 				if ( chooser.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION  ) {
 					File f = chooser.getSelectedFile();
+					if ( testFileOpened(f) ) return;
 					
 					try{
 						VcfDataPack vcf = new VcfDataPack(f);

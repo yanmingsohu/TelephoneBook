@@ -16,7 +16,7 @@ public class mainc {
 		}
 		new ManageFrame();
 		try {
-			Thread.sleep(100);
+			Thread.sleep(200);
 		} catch(Exception e){}
 		
 		ad.setVisible(false);

@@ -123,6 +123,12 @@ public class TableDataPack {
 		in.close();
 		return d;
 	}
+	 
+	/**
+	 * 设置表格编辑器
+	 */
+	public void setEditor(IEditorSet setter) {
+	}
 	
 	/**
 	 * 内部数据类,通过 TableDataPack.get() 直接使用
@@ -142,6 +148,8 @@ public class TableDataPack {
 		public int rowCount;
 		/** 列的数量 */
 		public int columnCount;
+		
+		private Data() {}
 	}
 	
 	public static byte[] intTo4bytes(int i) {
