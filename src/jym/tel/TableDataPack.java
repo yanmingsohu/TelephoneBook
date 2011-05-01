@@ -131,6 +131,21 @@ public class TableDataPack {
 	}
 	
 	/**
+	 * 插入新的行时该方法被调用,rowIdx指明是Data哪一行是新插入的行<br>
+	 * 该方法返回新建行的数据
+	 */
+	public Object[] addRow(int rowIdx) {
+		return new Object[d.columnCount];
+	}
+	
+	/**
+	 * 删除行的时候该方法被调用,rowIdx指明是Data哪一行是要删除的行
+	 */
+	public void removeRow(int rowIdx) {
+	}
+// ----------------------------------------------------------- //
+	
+	/**
 	 * 内部数据类,通过 TableDataPack.get() 直接使用
 	 */
 	public class Data {
@@ -177,7 +192,7 @@ public class TableDataPack {
 	}
 	
 	/** 清空所有对象,释放内存 */
-	public void quit() {
+	public final void quit() {
 		d.columnCount = -1;
 		d.rowCount = -1;
 		d.columnName = null;

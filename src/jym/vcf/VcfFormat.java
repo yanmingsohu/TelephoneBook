@@ -48,6 +48,12 @@ public class VcfFormat {
 		}
 	}
 	
+	public Contact createContact() {
+		Contact c = new Contact();
+		rows.add(c);
+		return c;
+	}
+	
 	public void out(Appendable out) throws IOException {
 		Iterator<Contact> itr = rows.iterator();
 		while (itr.hasNext()) {
@@ -78,11 +84,15 @@ public class VcfFormat {
 		private Map<String, Item> map;
 		
 		
-		public Contact(BufferedReader in) throws IOException {
-			String line = in.readLine();
-			line_c++;
+		private Contact() {
 			items = new ArrayList<Item>();
 			map = new HashMap<String, Item>();
+		}
+		
+		private Contact(BufferedReader in) throws IOException {
+			this();
+			String line = in.readLine();
+			line_c++;
 			
 			while (line!=null && line.equalsIgnoreCase(END)==false) {
 				Item i = new Item(line);
@@ -93,7 +103,7 @@ public class VcfFormat {
 			}
 		}
 		
-		private void addItem(Item i) {
+		public void addItem(Item i) {
 			i._c = this;
 			items.add(i);
 			map.put(i.getName(), i);
@@ -208,14 +218,22 @@ public class VcfFormat {
 				throw new NullPointerException("rowItem未指定Contact");
 			}
 
+			return copy(rowItem._c);
+		}
+		
+		public Item copy(Contact c) {
 			Item i = new Item();
 			i.name = name;
 			i.type = type;
 			i.props = props;
 			i.values = new String[values.length];
-			
-			rowItem._c.addItem(i);
+			c.addItem(i);
 			return i;
+		}
+		
+		/** 删除与当前项目关联的联系人信息 */
+		public void removeContact() {
+			rows.remove(this._c);
 		}
 		
 		public void out(Appendable out) throws IOException {

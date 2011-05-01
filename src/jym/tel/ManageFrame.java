@@ -17,6 +17,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import jym.lan.Lang;
 import jym.vcf.VcfDataPack;
 import jym.wit.AboutDialog;
 import jym.wit.InputDialog;
@@ -399,10 +400,7 @@ public class ManageFrame extends JFrame {
 				new AboutDialog(frame);
 			}
 			else if( src==help) {
-				Tools.message("程序说明\n该程序开始设计时,作者水平尚浅,\n" +
-						"今偶然需要修改vcf文件,想起若干年前有此程序,\n" +
-						"便拿出来修改一番,功能有限,请用者有心则改之\n" +
-						"代码开源,在: http://github.com/yanmingsohu/TelephoneBook");
+				Tools.message(Lang.get("help.message"));
 			}
 			// 退出
 			else if(src==quit) {

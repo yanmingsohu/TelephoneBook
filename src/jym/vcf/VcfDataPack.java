@@ -80,7 +80,43 @@ public class VcfDataPack extends TableDataPack {
 	//	setter.set(Object.class, (TableCellRenderer) new VcfEditor());
 	}
 	
-	
+	@Override
+	public Object[] addRow(int rowIdx) {
+		final int cIdx = 0;
+		Data d = get();
+		Item item = null;
+		Object[] row = new Object[d.columnCount];
+		
+		for (int r=0; r<d.rowCount; ++r) {
+			Object o = d.data[r][cIdx];
+			if (o instanceof Item) {
+				item = (Item) o;
+				break;
+			}
+		}
+		
+		if (item!=null) {
+			Contact c = vcf.createContact();
+			row[cIdx] = item.copy(c);
+		}
+		
+		return row;
+	}
+
+	@Override
+	public void removeRow(int rowIdx) {
+		Data d = get();
+		Object[] row = d.data[rowIdx];
+		
+		for (int c=0; c<d.columnCount; ++c) {
+			Object o = row[c];
+			if (o instanceof Item) {
+				((Item)o).removeContact();
+			}
+		}
+	}
+
+
 	private class VcfEditor extends AbstractCellEditor 
 			implements TableCellEditor, TableCellRenderer {
 
