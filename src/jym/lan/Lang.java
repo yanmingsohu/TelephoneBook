@@ -19,18 +19,30 @@ public class Lang {
 		return lang.getProperty(id, id + "is undefined");
 	}
 	
+	public static String get(String id, Object... parm) {
+		return String.format(get(id), parm);
+	}
+	
 	public static void init() {
-		String u_lang = "/jym/lan/" + getLanguage() + ".lang.txt";
-
+		String u_lang = getLanguage() + ".lang.txt";
+		
+		if (!load(u_lang)) {
+			load("zh.lang.txt");
+		}
+	}
+	
+	private static boolean load(String src) {
 		try {
-			InputStream in = Lang.class.getResourceAsStream(u_lang);
+			InputStream in = Lang.class.getResourceAsStream(src);
 			InputStreamReader read = new InputStreamReader(in, "GBK");
 
 			lang.load(read);
 			read.close();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 	
 	public static String getLanguage() {
@@ -38,6 +50,6 @@ public class Lang {
 	}
 	
 	public static void main(String[] s) {
-		System.out.println(get("help.message"));
+		System.out.println(get("error.vcfline", 22));
 	}
 }

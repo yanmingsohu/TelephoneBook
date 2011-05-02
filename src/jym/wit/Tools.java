@@ -6,6 +6,8 @@ import java.io.File;
 
 import javax.swing.JDialog;
 
+import jym.lan.Lang;
+
 public class Tools {
 	private Tools() {}
 	private static MessageDialog md = new MessageDialog();
@@ -47,8 +49,8 @@ public class Tools {
 	}
 	
 	public static void functionNotComplete() {
-		md.show("作者太懒，功能尚未实现.\n需要获取更多功能，请与作者联系:" +
-				"yanming-sohu@sohu.com\nqq:412475540");
+		md.show(Lang.get("about.unachieve") +
+				"\nyanming-sohu@sohu.com\nqq:412475540");
 	}
 	
 	public static void center(JDialog w) {

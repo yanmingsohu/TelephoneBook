@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import jym.lan.Lang;
 import jym.wit.Tools;
 
 
@@ -146,7 +147,7 @@ public class VcfFormat {
 		private Item(String line) throws IOException {
 			String[] _t = line.split(":");
 			if (_t.length!=2) {
-				throw new IOException("语法错误,没有找到':'分隔符,在第" + line_c + "行");
+				throw new IOException(Lang.get("error.vcfline", line_c));
 			}
 			set(_t[0], _t[1]);
 		}
@@ -215,7 +216,7 @@ public class VcfFormat {
 		 */
 		public Item copy(Item rowItem) {
 			if (rowItem._c==null) {
-				throw new NullPointerException("rowItem未指定Contact");
+				throw new NullPointerException(Lang.get("error.vcf.copyitem"));
 			}
 
 			return copy(rowItem._c);

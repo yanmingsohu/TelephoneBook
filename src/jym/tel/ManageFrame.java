@@ -41,7 +41,9 @@ public class ManageFrame extends JFrame {
 		dim = Toolkit.getDefaultToolkit().getScreenSize();
 		dim.height -= 100;
 		dim.width -= 100;
-		this.setTitle("µç»°²¾ CatfoOD 2008-2011 " + VersionCortrol.version);
+		this.setTitle(Lang.get("all.name") 
+				+ " " + VersionCortrol.time
+				+ " " + VersionCortrol.version);
 		this.setBounds(50, 50, dim.width, dim.height);
 		this.addWindowListener(new WL());
 		this.addKeyListener(keyListener);

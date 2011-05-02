@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import jym.lan.Lang;
+
 public class Type {
 	
 	private final static Map<String, String> map = new HashMap<String, String>();
@@ -11,28 +13,28 @@ public class Type {
 	private static Integer count = 0;
 	
 	static {
-	//	set("N", 		"名字"		);
-		set("FN",		"名字"		);
-		set("TEL",		"电话"		);
-		set("X-MSN",	"MSN"		);
-		set("X-AIM",	"QQ"		);
-		set("NOTE",		"备注"		);
-		set("URL",		"网址"		);
-		set("TITLE",	"标题"		);
-		set("ORG",		"公司"		);
-		set("ADR",		"地址"		);
-		set("EMAIL",	"邮箱"		);
+	//	set("N", 		Lang.get("vcf.type.n")			);
+		set("FN",		Lang.get("vcf.type.fn")			);
+		set("TEL",		Lang.get("vcf.type.tel")		);
+		set("X-MSN",	Lang.get("vcf.type.msn")		);
+		set("X-AIM",	Lang.get("vcf.type.aim")		);
+		set("NOTE",		Lang.get("vcf.type.note")		);
+		set("URL",		Lang.get("vcf.type.url")		);
+		set("TITLE",	Lang.get("vcf.type.title")		);
+		set("ORG",		Lang.get("vcf.type.org")		);
+		set("ADR",		Lang.get("vcf.type.adr")		);
+		set("EMAIL",	Lang.get("vcf.type.email")		);
 		
-		set("X-ANDROID-CUSTOM",			"自定义"			);
+		set("X-ANDROID-CUSTOM",			Lang.get("vcf.type.cust"));
 		set("X-PHONETIC-FIRST-NAME",	"first name"	);
 		set("X-PHONETIC-MIDDLE-NAME",	"middle name"	);
 		set("X-PHONETIC-LAST-NAME",		"last name"		);
 		
 
-		set("HOME",		"家庭"		);
-		set("WORK",		"工作"		);
-		set("VOICE",	"语音"		);
-		set("CELL",		""			);
+		set("HOME",		Lang.get("vcf.type.home")		);
+		set("WORK",		Lang.get("vcf.type.work")		);
+		set("VOICE",	Lang.get("vcf.type.voice")		);
+		set("CELL",		"");
 	}
 	
 	

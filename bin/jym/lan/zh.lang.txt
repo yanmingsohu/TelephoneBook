@@ -1,6 +1,49 @@
-## Chinese language set
+## Chinese language define
+## charset: GBK
+## last edit: 2011-05-02
 
-help.message = 程序说明\n该程序开始设计时,作者水平尚浅,\n\
+
+help.message =	程序说明\n该程序开始设计时,作者水平尚浅,\n\
 				今偶然需要修改vcf文件,想起若干年前有此程序,\n\
 				便拿出来修改一番,功能有限,请用者有心则改之\n代码开源,\
 				在: http://github.com/yanmingsohu/TelephoneBook
+				
+				
+def.android.name = 导入的Android电话簿
+def.undefine = 未定义
+
+
+all.name = 电话簿
+all.close = 关闭
+all.ok = 确定
+all.cancel = 取消
+all.detail = 详细信息
+
+about.about = 关于.
+about.mess1 = 程序为免费软件,可以任意分发使用.
+about.mess2 = 对于因使用本程序造成的任何损失,作者不负有任何责任.
+about.unachieve = 作者太懒，功能尚未实现.\n需要获取更多功能，请与作者联系
+
+bu.howcol = 更改那一列?
+
+vcf.type.n = 名字
+vcf.type.fn = 名字
+vcf.type.tel = 电话
+vcf.type.msn = MSN
+vcf.type.aim = QQ
+vcf.type.note = 备注
+vcf.type.url = 网址
+vcf.type.title = 标题
+vcf.type.org = 公司
+vcf.type.adr = 地址
+vcf.type.email = 邮箱
+vcf.type.home = 家庭
+vcf.type.work = 工作
+vcf.type.voice = 语音
+vcf.type.cust = 自定义
+
+				
+error.vcfline = 语法错误,没有找到':'分隔符,在第%1s行
+error.vcf.copyitem = rowItem未指定Contact
+error.filefail = 不是有效的电话簿文件.\n文件可能已经损坏或丢失
+error.password = 密码错误

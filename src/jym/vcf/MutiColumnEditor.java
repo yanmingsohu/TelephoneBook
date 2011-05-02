@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import jym.lan.Lang;
 import jym.vcf.VcfFormat.Item;
 
 public class MutiColumnEditor extends JPanel {
@@ -46,7 +47,7 @@ public class MutiColumnEditor extends JPanel {
 				if (columnIndex<names.length) {
 					return names[columnIndex];
 				} else {
-					return "Î´¶¨Òå";
+					return Lang.get("def.undefine");
 				}
 			}
 		}

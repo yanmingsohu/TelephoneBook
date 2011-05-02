@@ -54,7 +54,7 @@ public class EncodeStream extends OutputStream {
 		try {
 			md = MessageDigest.getInstance("MD5");
 		} catch (NoSuchAlgorithmException e) {
-			throw new IOException("MD5 ‘ÀÀ„¥ÌŒÛ\n"+e);
+			throw new IOException("MD5 error\n"+e);
 		}
 		byte[] md5 = md.digest(pw);
 		fo.write(md5);

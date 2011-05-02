@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableModel;
 
+import jym.lan.Lang;
 import jym.wit.Tools;
 
 public class ButtonDialog extends JDialog implements ActionListener {
@@ -32,7 +33,7 @@ public class ButtonDialog extends JDialog implements ActionListener {
 	
 	
 	public ButtonDialog(Frame f) {
-		this(f, "更改那一列?");
+		this(f, Lang.get("bu.howcol"));
 	}
 	
 	public ButtonDialog(Frame f, String title) {
@@ -42,7 +43,7 @@ public class ButtonDialog extends JDialog implements ActionListener {
 		buttonPan = new Panel(new GridLayout(0,1));
 		
 		Panel pan = new Panel(new FlowLayout(FlowLayout.CENTER,8,10));
-		cancel = new JButton("取消");
+		cancel = new JButton(Lang.get("all.close"));
 		cancel.addActionListener(this);
 		pan.add(cancel);
 		

@@ -19,6 +19,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import jym.lan.Lang;
+
 /**
  * 输入对话框
  */
@@ -26,8 +28,8 @@ public class InputDialog extends JDialog {
 	
 	private static final long serialVersionUID = -9142246621039344159L;
 	
-	private JButton ok = new JButton("确定");
-	private JButton cancel = new JButton("取消");
+	private JButton ok = new JButton(Lang.get("all.cancel"));
+	private JButton cancel = new JButton(Lang.get("all.cancel"));
 	private JTextField text;
 
 	private WA wa = new WA();

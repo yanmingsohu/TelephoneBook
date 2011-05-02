@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import jym.lan.Lang;
 import jym.tel.IEditorSet;
 import jym.tel.TableDataPack;
 import jym.vcf.VcfFormat.Contact;
@@ -45,7 +46,7 @@ public class VcfDataPack extends TableDataPack {
 		d.columnCount	= vcf.getColumns().size();
 		d.rowCount 		= vcf.getData().size();
 		d.data 			= new Object[d.rowCount][d.columnCount];
-		d.name 			= "导入的Android电话簿 " + d.file;
+		d.name 			= Lang.get("def.android.name") + " " + d.file;
 		d.password		= DEFAULTPASSWORD;
 		
 		List<Contact> list = vcf.getData();

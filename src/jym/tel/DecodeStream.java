@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import jym.lan.Lang;
+
 /**
  * 数据流解密
  * 使用时用DecodeStream替换InputStream
@@ -41,7 +43,7 @@ public class DecodeStream extends InputStream{
 		byte[] scr = new byte [SECERN.length];
 		in.read(scr, 0, SECERN.length);
 		if ( !MessageDigest.isEqual(scr,SECERN) ) {
-			throw new IOException("不是有效的电话簿文件.\n文件可能已经损坏或丢失");
+			throw new IOException(Lang.get("error.filefail"));
 		}
 
 		MessageDigest md;
@@ -146,7 +148,7 @@ public class DecodeStream extends InputStream{
 		byte[] scr = new byte [SECERN.length];
 		fileLength -= fi.read(scr, 0, SECERN.length);
 		if ( !MessageDigest.isEqual(scr,SECERN) ) {
-			throw new IOException("不是有效的电话簿文件.\n文件可能已经损坏或丢失");
+			throw new IOException(Lang.get("error.filefail"));
 		}
 		
 		//判断密码正误
@@ -168,7 +170,7 @@ public class DecodeStream extends InputStream{
 		bookname = new String(_n);
 		
 		if ( !MessageDigest.isEqual(md5, fmd) ) {
-			throw new IOException("密码错误.");
+			throw new IOException(Lang.get("error.password"));
 		}
 		
 		plen	= pw.length;

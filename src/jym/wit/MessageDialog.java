@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
+import jym.lan.Lang;
+
 /**
  * 便捷显示消息的类,建立后调用 show(Title, Text) 方法.
  * @author CatfoOD
@@ -29,8 +31,8 @@ public class MessageDialog extends JDialog {
 	private static final long serialVersionUID = 3734223734096180986L;
 	
 	private JLabel  label  = new JLabel();
-	private JButton button = new JButton("     确定     ");
-	private JButton about  = new JButton(" 详细信息 ");
+	private JButton button = new JButton(Lang.get("all.ok"));
+	private JButton about  = new JButton(Lang.get("all.detail"));
 	private final WA wa = new WA(); 
 	
 	/**
@@ -130,11 +132,11 @@ class MoreDialog extends JDialog {
 	
 	
 	MoreDialog(Dialog d) {
-		super(d, "详细信息", true);
+		super(d, Lang.get("all.detail"), true);
 		setResizable(false);
 		WA wa = new WA();
 		addWindowListener(wa);
-		JButton b = new JButton("关闭");
+		JButton b = new JButton(Lang.get("all.close"));
 		b.addActionListener(wa);
 		t.setEditable(false);
 		
