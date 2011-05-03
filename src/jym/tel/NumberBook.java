@@ -62,11 +62,9 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		table.addMouseListener(ml);
 		
 		tdp.setEditor(new IEditorSet() {
-			@Override
 			public void set(Class<?> c, TableCellEditor editor) {
 				table.setDefaultEditor(c, editor);
 			}
-			@Override
 			public void set(Class<?> c, TableCellRenderer rand) {
 				table.setDefaultRenderer(c, rand);
 			}

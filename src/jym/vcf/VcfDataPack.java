@@ -38,7 +38,6 @@ public class VcfDataPack extends TableDataPack {
 		vcf = new VcfFormat(f);
 	}
 
-	@Override
 	public Data read() throws IOException {
 		Data d = get();
 		
@@ -66,7 +65,6 @@ public class VcfDataPack extends TableDataPack {
 		return d;
 	}
 
-	@Override
 	public void write(Data d) throws IOException {
 		FileWriter fileout = new FileWriter(d.file);
 		BufferedWriter out = new BufferedWriter(fileout);
@@ -75,13 +73,11 @@ public class VcfDataPack extends TableDataPack {
 		out.close();
 	}
 
-	@Override
 	public void setEditor(IEditorSet setter) {
 		setter.set(Object.class, (TableCellEditor) new VcfEditor());
 	//	setter.set(Object.class, (TableCellRenderer) new VcfEditor());
 	}
 	
-	@Override
 	public Object[] addRow(int rowIdx) {
 		final int cIdx = 0;
 		Data d = get();
@@ -104,7 +100,6 @@ public class VcfDataPack extends TableDataPack {
 		return row;
 	}
 
-	@Override
 	public void removeRow(int rowIdx) {
 		Data d = get();
 		Object[] row = d.data[rowIdx];
@@ -125,7 +120,6 @@ public class VcfDataPack extends TableDataPack {
 		private Object value;
 		
 
-		@Override
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
 				int column) {
@@ -134,7 +128,6 @@ public class VcfDataPack extends TableDataPack {
 					table, value, isSelected, row, column);
 		}
 		
-		@Override
 		public Component getTableCellEditorComponent(JTable table,
 				Object value, boolean isSelected, int row, int column) {
 			
@@ -176,7 +169,6 @@ public class VcfDataPack extends TableDataPack {
 			return new JLabel("²»Ö§³Ö");
 		}
 
-		@Override
 		public Object getCellEditorValue() {
 			return value;
 		}

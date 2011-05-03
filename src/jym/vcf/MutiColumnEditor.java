@@ -29,17 +29,14 @@ public class MutiColumnEditor extends JPanel {
 		private static final long serialVersionUID = -59800700186230105L;
 		private String[] names = new String[0];
 
-		@Override
 		public int getRowCount() {
 			return item.getValues().length;
 		}
 
-		@Override
 		public int getColumnCount() {
 			return 2;
 		}
 
-		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			if (rowIndex==1) {
 				return item.getValues()[columnIndex];
@@ -52,12 +49,10 @@ public class MutiColumnEditor extends JPanel {
 			}
 		}
 
-		@Override
 		public boolean isCellEditable(int rowIndex, int columnIndex) {
 			return rowIndex == 1;
 		}
 
-		@Override
 		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 			item.setValue(rowIndex, (String) aValue);
 		}
