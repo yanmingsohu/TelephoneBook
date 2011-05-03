@@ -9,6 +9,7 @@ log/*
 *.lib
 *.zip
 *.tel
+*.apk
 
 *.exp
 *.pdb
