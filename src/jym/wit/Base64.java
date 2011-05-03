@@ -4,6 +4,9 @@ package jym.wit;
 
 import java.util.Arrays;
 
+/**
+ * 该类在网上下载, 出处未知
+ */
 public class Base64 {
 
 	private static final byte[] encodingTable =

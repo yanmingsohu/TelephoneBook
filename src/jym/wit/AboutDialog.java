@@ -49,6 +49,7 @@ public class AboutDialog extends JDialog implements ActionListener {
 		int x = (int)( (dim.width-width)/2 );
 		int y = (int)( (dim.height-height)/2);
 		setBounds(x, y, width, height);
+		
 		MediaTracker md = new MediaTracker(this);
 		img = img.getScaledInstance(width, -1, 0);
 		md.addImage(img, 0);

@@ -211,7 +211,6 @@ public class VcfDataPack extends TableDataPack {
 				if (v!=null) setText(v);
 				
 				this.addKeyListener(new KeyAdapter() {
-					@Override
 					public void keyReleased(KeyEvent e) {
 						i.setValue(0, getText());
 					}

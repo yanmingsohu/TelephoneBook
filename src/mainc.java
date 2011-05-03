@@ -3,7 +3,10 @@ import jym.wit.AboutDialog;
 import jym.wit.LookandfeelFactory;
 
 
-
+/**
+ * 本程序的代码写的稀烂, 看后小心吐血
+ *                       -- CatfoOD
+ */
 public class mainc {
 
 	public static void main(String[] args) {

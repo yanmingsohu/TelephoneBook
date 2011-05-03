@@ -91,9 +91,11 @@ public class MessageDialog extends JDialog {
 		validate();
 		setVisible(true);
 	}
+	
 	public void show(String message) {
 		show("Message.",message);
 	}
+	
 	public void show(Exception e) {
 		StackTraceElement[] list = e.getStackTrace();
 		String text = e.getMessage()+'\n';
@@ -121,6 +123,7 @@ public class MessageDialog extends JDialog {
 	public void showMore() {
 		md.show(mge);
 	}
+	
 	private String mge;
 	private MoreDialog md = new MoreDialog(this);
 }
@@ -154,11 +157,13 @@ class MoreDialog extends JDialog {
 		add(s, BorderLayout.CENTER);
 		add(b, BorderLayout.SOUTH);
 	}
+	
 	public void show(String text) {
 		t.setText(text);
 		validate();
 		setVisible(true);
 	}
+	
 	private class WA extends WindowAdapter implements ActionListener {
 		public void windowClosing(WindowEvent e) {
 			setVisible(false);
@@ -167,6 +172,7 @@ class MoreDialog extends JDialog {
 			setVisible(false);
 		}
 	}
+	
 	public int getColumns() {
 		return t.getColumns();
 	}

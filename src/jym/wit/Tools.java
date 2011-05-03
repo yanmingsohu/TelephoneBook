@@ -9,8 +9,10 @@ import javax.swing.JDialog;
 import jym.lan.Lang;
 
 public class Tools {
+	
 	private Tools() {}
 	private static MessageDialog md = new MessageDialog();
+	
 	
 	/**
 	 * 一个对话框错误消息
