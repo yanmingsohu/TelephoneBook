@@ -1,49 +1,144 @@
 ## Chinese language define
-## charset: GBK
-## last edit: 2011-05-02
+## charset: UTF-8
+## last edit: 2011-05-03
 
 
-help.message =	����˵��\n�ó���ʼ���ʱ,����ˮƽ��ǳ,\n\
-				��żȻ��Ҫ�޸�vcf�ļ�,����������ǰ�д˳���,\n\
-				���ó����޸�һ��,��������,�������������֮\n���뿪Դ,\
-				��: http://github.com/yanmingsohu/TelephoneBook
+help.message =	程序说明\n该程序开始设计时,作者水平尚浅,\n\
+				今偶然需要修改vcf文件,想起若干年前有此程序,\n\
+				便拿出来修改一番,功能有限,请用者有心则改之\n代码开源,\
+				在: http://github.com/yanmingsohu/TelephoneBook
 				
 				
-def.android.name = �����Android�绰��
-def.undefine = δ����
+def.android.name	= 导入的Android电话簿
+def.undefine		= 未定义
+def.bookname		= 我的电话簿
+def.colnames		= 姓名,手机,家庭电话,关系,住址,日期,其他
 
 
-all.name = �绰��
-all.close = �ر�
-all.ok = ȷ��
-all.cancel = ȡ��
-all.detail = ��ϸ��Ϣ
+all.name 	= 电话簿
+all.close	= 关闭
+all.ok		= 确定
+all.cancel	= 取消
+all.detail	= 详细信息
+all.yes		= 是
+all.no		= 否
 
-about.about = ����.
-about.mess1 = ����Ϊ�������,��������ַ�ʹ��.
-about.mess2 = ������ʹ�ñ�������ɵ��κ���ʧ,���߲������κ�����.
-about.unachieve = ����̫����������δʵ��.\n��Ҫ��ȡ���๦�ܣ�����������ϵ
 
-bu.howcol = ������һ��?
+mana.isopend		= 这个电话簿已经打开.
+mana.menu.file		= 文件
+mana.menu.openex	= 打开已有的电话簿..
+mana.menu.delex		= 删除已有的电话簿..
+mana.menu.openex	= 从选择的文件打开电话簿..
+mana.menu.crnew		= 新建一个电话簿..
+mana.menu.openvcf	= 打开VCF(Android)电话簿..
+mana.menu.quit		= 退出
+mana.menu.window	= 窗口
+mana.menu.casc		= 层叠所有窗口
+mana.menu.tile		= 平铺所有窗口
+mana.menu.closeall	= 关闭所有窗口
+mana.menu.chfeel	= 更换皮肤
+mana.menu.swing		= Swing的皮肤
+mana.menu.sysfeel	= 符合你系统的皮肤
+mana.menu.help		= 帮助
+mana.menu.about		= 关于 【电话簿】
+mana.type.tel		= 电话簿文档
+mana.type.vcf		= Android电话簿文件
+mana.in.pass		= 输入密码
+mana.in.vpass		= 验证密码
+mana.openbook		= 打开一个电话簿..
+mana.delbook		= 删除一个电话簿!!
+mana.delcfm			= 真的要删除电话簿: %1s ?
+mana.bookdelete		= 已经删除电话本: %1s 本地文件: %2s
+mana.delfail		= 删除电话本: %1s 失败..
+mana.newbookpass	= 新建电话簿密码
+mana.nousepass		= 不使用密码.
+mana.vpasserr		= 密码验证错误.
+mana.calnewbook		= 取消新建文件.
 
-vcf.type.n = ����
-vcf.type.fn = ����
-vcf.type.tel = �绰
-vcf.type.msn = MSN
-vcf.type.aim = QQ
-vcf.type.note = ��ע
-vcf.type.url = ��ַ
-vcf.type.title = ����
-vcf.type.org = ��˾
-vcf.type.adr = ��ַ
-vcf.type.email = ����
-vcf.type.home = ��ͥ
-vcf.type.work = ����
-vcf.type.voice = ����
-vcf.type.cust = �Զ���
+
+num.menu.add	= 添加
+num.menu.del	= 删除
+num.menu.copy	= 复制
+num.menu.paste	= 粘贴
+num.menu.setcol	= 更改选择项目的内容..
+num.menu.file	= 文件
+num.menu.save	= 保存
+num.menu.rename	= 改变电话簿的名字..
+num.menu.repass	= 改变密码..
+num.menu.qnsave = 退出,不保存先前修改的数据
+num.menu.qsave	= 保存并退出
+num.menu.edit	= 编辑
+num.menu.delnul	= 移除空行
+num.menu.trim	= 移除所有项目的首尾空字符
+num.menu.find	= 查找..
+num.menu.fnext	= 查找下一个
+num.menu.sort	= 排序/筛选
+num.menu.shall	= 显示全部
+num.menu.colsor = 按列排序
+num.menu.inc	= 显示包含单词的条目
+num.menu.exc	= 滤除包含单词的条目
+num.menu.colum	= 列/项目
+num.menu.addcol	= 添加一个项目列
+num.menu.delcol	= 移除一个项目列
+num.menu.setcol	= 更改选择项目的内容..
+num.selectline	= 选择了: %1s 行.
+num.state		= 总行数: %1s  显示的行数: %2s
+num.newname		= 新的名字
+num.namelen		= 名字必须多于1个字母.
+num.newpass		= 新的密码
+num.clearpass	= 密码已经被删除,不使用密码.
+num.reinput		= 重新输入一遍
+num.passseted	= 密码已经更改,下次登录请使用新的密码.
+num.repasserr	= 两次输入的密码不同,请重试..
+num.nosetpass	= 放弃更改密码
+num.in.inc		= 输入包含的单词
+num.in.exc		= 输入要滤除的单词
+num.in.newcoln	= 新列的名字
+num.colnexist	= '%1s' 列已经存在，请使用不同的列名.
+num.reincname	= 请输入有效的列名.
+num.nodelcol	= 有效的数据列只有一行，不能继续删除.
+num.sldelcol	= 选择要删除的列
+num.confirmdel	= %1s 列的所有数据都会丢失，确定么？
+num.slcolval	= 请先选择要更改的项目
+num.cfmrelse	= 选择的项目有内容了,要覆盖么?
+num.colnewval	= 新的内容
+num.colvalok	= 修改成功!
+num.colvalcal	= 取消修改..
+
+
+tel.brow.nobook = 没有已经建立的电话簿.
+tel.brow.inpass = 输入密码
+tel.brow.passwr = 密码错误
+
+
+about.about		= 关于.
+about.mess1		= 程序为免费软件,可以任意分发使用.
+about.mess2		= 对于因使用本程序造成的任何损失,作者不负有任何责任.
+about.unachieve	= 作者太懒，功能尚未实现.\n需要获取更多功能，请与作者联系
+
+
+bu.howcol = 更改那一列?
+
+
+vcf.type.n		= 名字
+vcf.type.fn		= 名字
+vcf.type.tel	= 电话
+vcf.type.msn	= MSN
+vcf.type.aim	= QQ
+vcf.type.note	= 备注
+vcf.type.url	= 网址
+vcf.type.title	= 标题
+vcf.type.org	= 公司
+vcf.type.adr	= 地址
+vcf.type.email	= 邮箱
+vcf.type.home	= 家庭
+vcf.type.work	= 工作
+vcf.type.voice	= 语音
+vcf.type.cust	= 自定义
 
 				
-error.vcfline = �﷨����,û���ҵ�':'�ָ���,�ڵ�%1s��
-error.vcf.copyitem = rowItemδָ��Contact
-error.filefail = ������Ч�ĵ绰���ļ�.\n�ļ������Ѿ��𻵻�ʧ
-error.password = �������
+error.vcfline		= 语法错误,没有找到':'分隔符,在第%1s行
+error.vcf.copyitem	= rowItem未指定Contact
+error.filefail		= 不是有效的电话簿文件.\n文件可能已经损坏或丢失
+error.password		= 密码错误
+error.parm			= 非法的函数参数

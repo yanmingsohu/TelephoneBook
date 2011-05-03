@@ -27,14 +27,14 @@ public class Lang {
 		String u_lang = getLanguage() + ".lang.txt";
 		
 		if (!load(u_lang)) {
-			load("zh.lang.txt");
+			load("en.lang.txt");
 		}
 	}
 	
 	private static boolean load(String src) {
 		try {
 			InputStream in = Lang.class.getResourceAsStream(src);
-			InputStreamReader read = new InputStreamReader(in, "GBK");
+			InputStreamReader read = new InputStreamReader(in, "UTF-8");
 
 			lang.load(read);
 			read.close();

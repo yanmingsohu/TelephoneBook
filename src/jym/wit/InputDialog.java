@@ -2,11 +2,9 @@ package jym.wit;
 // CatfoOD 2008.2.25
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Panel;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -28,7 +26,7 @@ public class InputDialog extends JDialog {
 	
 	private static final long serialVersionUID = -9142246621039344159L;
 	
-	private JButton ok = new JButton(Lang.get("all.cancel"));
+	private JButton ok = new JButton(Lang.get("all.ok"));
 	private JButton cancel = new JButton(Lang.get("all.cancel"));
 	private JTextField text;
 
@@ -58,13 +56,6 @@ public class InputDialog extends JDialog {
 		setResizable(false);
 		addWindowListener(wa);
 		
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = 300;
-		int height= 110;
-		int x = (int)( (dim.width-width)/2 );
-		int y = (int)( (dim.height-height)/2);
-		setBounds(x, y, width, height);
-		
 		if( password ) {
 			text = new JPasswordField(TEXT_WEIGHT);
 		}else{
@@ -74,7 +65,7 @@ public class InputDialog extends JDialog {
 		JLabel jl = new JLabel(message);
 		jl.setHorizontalAlignment(SwingConstants.RIGHT);
 		jl.setBounds(10, 10, 110, 20);
-		text.setBounds(130, 10, 140, 20);
+		text.setBounds(130, 10, 190, 20);
 		pan2.add(jl);
 		pan2.add(text);
 		
@@ -87,6 +78,9 @@ public class InputDialog extends JDialog {
 		setLayout(new BorderLayout());
 		add(pan2, 	BorderLayout.CENTER);
 		add(pan,	BorderLayout.SOUTH);
+
+		setSize(400, 110);
+		Tools.center(this);
 	}
 	
 	/**

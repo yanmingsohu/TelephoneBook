@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import jym.img.icon1_gif;
 import jym.img.icon2_gif;
 import jym.img.icon3_gif;
+import jym.lan.Lang;
 import jym.wit.InputDialog;
 import jym.wit.Tools;
 
@@ -77,7 +78,7 @@ public class TelphoneBrowse extends JDialog implements ActionListener {
 		if( count>0 ) {
 			this.setVisible(true);
 		}else{
-			Tools.message("没有已经建立的电话簿.");
+			Tools.message(Lang.get("tel.brow.nobook"));
 		}
 	}
 
@@ -100,7 +101,7 @@ public class TelphoneBrowse extends JDialog implements ActionListener {
 				this.name = name;
 				return;
 			}catch(Exception eee) {
-				InputDialog input = new InputDialog(null, "输入密码", true);
+				InputDialog input = new InputDialog(null, Lang.get("tel.brow.inpass"), true);
 				if( input.getInput()==InputDialog.OK ) {
 					try{
 						password = input.getResult();
@@ -110,7 +111,7 @@ public class TelphoneBrowse extends JDialog implements ActionListener {
 						this.name = name;
 						return;
 					}catch(Exception ee){
-						Tools.message("密码错误");
+						Tools.message(Lang.get("tel.brow.passwr"));
 					}
 				}
 			}

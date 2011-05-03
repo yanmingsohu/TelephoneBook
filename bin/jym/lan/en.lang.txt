@@ -1,0 +1,144 @@
+## English language define
+## Charset: UTF-8
+## Last edit: 2011-05-03
+
+
+help.message = description of the procedures  \nThe beginning of the program design, yet the level of light,\n\
+	Vcf file to modify this chance, I think of this program several years ago,\n\
+	Will come to modify some functions are limited, those determined to rectify with the \n code is open source,\
+	In: http://github.com/yanmingsohu/TelephoneBook
+
+
+def.android.name = import Android Phone Book
+def.undefine = undefined
+def.bookname = my phone book
+def.colnames = name, cell phone, home phone, relationship, address, date, other
+
+
+all.name = Phonebook
+all.close = close
+all.ok = OK
+all.cancel = Cancel
+all.detail = For more information
+all.yes = Yes
+all.no = No
+
+
+mana.isopend = This directory has been opened.
+mana.menu.file = file
+mana.menu.openex = open an existing phone book ..
+mana.menu.delex = delete an existing phone book ..
+mana.menu.openex = Open selected files from the phone book ..
+mana.menu.crnew = Create a new directory ..
+mana.menu.openvcf = open VCF (Android) phone book ..
+mana.menu.quit = Exit
+mana.menu.window = window
+mana.menu.casc = cascade all the windows
+mana.menu.tile = tile all windows
+mana.menu.closeall = Close all windows
+mana.menu.chfeel = replacement skin
+mana.menu.swing = Swing of the skin
+mana.menu.sysfeel = line with the skin of your system
+mana.menu.help = Help
+mana.menu.about = about on【Telephone】
+mana.type.tel = Phonebook document
+mana.type.vcf = Android phone book file
+mana.in.pass = password
+mana.in.vpass = Verify Password
+mana.openbook = open a phone book ..
+mana.delbook = delete a phone book!!
+mana.delcfm = really want to delete the directory: %1s ?
+mana.bookdelete = has been deleted phone book: %1s local file: %2s
+mana.delfail = delete phone book: %1s failed ..
+mana.newbookpass = New Telephone Directory password
+mana.nousepass = do not use a password.
+mana.vpasserr = Password Authentication error.
+mana.calnewbook = cancel the new document.
+
+
+num.menu.add = Add
+num.menu.del = Delete
+num.menu.copy = Copy
+num.menu.paste = Paste
+num.menu.setcol = change the selection of the projects ..
+num.menu.file = file
+num.menu.save = Save
+num.menu.rename = change directory name ..
+num.menu.repass = change password ..
+num.menu.qnsave = Exit without saving modified data previously
+num.menu.qsave = Save and Exit
+num.menu.edit = Edit
+num.menu.delnul = remove blank lines
+num.menu.trim = null characters and end Remove all items
+num.menu.find = Search ..
+num.menu.fnext = Find Next
+num.menu.sort = sort/filter
+num.menu.shall = Show All
+num.menu.colsor = Sort by column
+num.menu.inc = Display entries containing the word
+num.menu.exc = filter entries that contain the word
+num.menu.colum = column/item
+num.menu.addcol = Add an item listed 
+num.menu.delcol = Remove a project list
+num.menu.setcol = change the selection of the projects ..
+num.selectline = selected: %1s line.
+num.state = total number of rows: %1s shows the number of rows: %2s
+num.newname = new name
+num.namelen = name must be more than one letter.
+num.newpass = new password
+num.clearpass = password has been deleted, do not use a password.
+num.reinput = re-enter again
+num.passseted = password has been changed, the next login, please use the new password.
+num.repasserr = two passwords are different, please try again ..
+num.nosetpass = give up to change your password
+num.in.inc = input contains the word
+num.in.exc = Enter the word to filter out
+num.in.newcoln = the name of the new column
+num.colnexist = '%1s' column already exists, please use a different column name.
+num.reincname = Please enter a valid column name.
+num.nodelcol = valid data out only one line, can not continue to be deleted.
+num.sldelcol = Select columns to be deleted
+num.confirmdel =%1s out all data will be lost, sure?
+num.slcolval = Please select the items you want to change
+num.cfmrelse = contents of the selected projects, to cover it?
+num.colnewval = new content
+num.colvalok = change success!
+num.colvalcal = Cancel the changes ..
+
+
+tel.brow.nobook = not established phone book.
+tel.brow.inpass = password
+tel.brow.passwr = Password Error
+
+
+about.about = on.
+about.mess1 = program is free software, you can use any distribution.
+about.mess2 = for the use of this procedure for any loss, the author is not responsible.
+about.unachieve = of the lazy, function is not implemented. \n need to get more features, please contact the
+
+
+bu.howcol = change in that column?
+
+
+vcf.type.n = name
+vcf.type.fn = name
+vcf.type.tel = Phone
+vcf.type.msn = MSN
+vcf.type.aim = QQ
+vcf.type.note = Remarks
+vcf.type.url = URL
+vcf.type.title = title
+vcf.type.org = Company
+vcf.type.adr = address
+vcf.type.email = E-mail
+vcf.type.home = family
+vcf.type.work = work
+vcf.type.voice = Voice
+vcf.type.cust = Custom
+
+
+error.vcfline = syntax error, not found ':' separator, in the first %1s line
+error.vcf.copyitem = Contact  rowItem not specified
+error.filefail = is not a valid phone book file. \n file may be corrupted or missing
+error.password = Password Error
+error.parm = illegal function parameters

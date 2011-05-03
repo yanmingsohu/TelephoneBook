@@ -25,6 +25,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import jym.lan.Lang;
 import jym.wit.InputDialog;
 import jym.wit.MenuListenerAdapter;
 import jym.wit.Tools;
@@ -83,11 +84,11 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 	
 	/** 建立弹出式菜单 */
 	private void creatPopMenu() {
-		padd  = creatMenu("添加");
-		pdel  = creatMenu("删除");
-		pcopy = creatMenu("复制");
-		ppaste= creatMenu("粘贴");
-		psetcols = creatMenu("更改选择项目的内容..");
+		padd  = creatMenu(Lang.get("num.menu.add"));
+		pdel  = creatMenu(Lang.get("num.menu.del"));
+		pcopy = creatMenu(Lang.get("num.menu.copy"));
+		ppaste= creatMenu(Lang.get("num.menu.paste"));
+		psetcols = creatMenu(Lang.get("num.menu.setcol"));
 		
 		popMenu.add(padd);
 		popMenu.add(pcopy);
@@ -107,12 +108,12 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 	private JMenuBar creatMenu() {
 		JMenuBar bar = new JMenuBar();
 		
-		file = new JMenu("文件");
-		save = creatMenu("保存 Ctrl+S");
-		changename=creatMenu("改变电话簿的名字..");
-		changepw = creatMenu("改变密码..");
-		quitnotsave = creatMenu("退出,不保存先前修改的数据");
-		savequit = creatMenu("保存并退出 Ctrl+Q");
+		file = new JMenu(Lang.get("num.menu.file"));
+		save 		= creatMenu("num.menu.save", "Ctrl+S");
+		changename	= creatMenu("num.menu.rename");
+		changepw	= creatMenu("num.menu.repass");
+		quitnotsave	= creatMenu("num.menu.qnsave");
+		savequit	= creatMenu("num.menu.qsave", "Ctrl+Q");
 		file.add(save);
 		file.addSeparator();
 		file.add(changename);
@@ -121,15 +122,15 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		file.add(quitnotsave);
 		file.add(savequit);
 		
-		edit = new JMenu("编辑");
-		add  = creatMenu("添加");
-		del  = creatMenu("删除");
-		copy = creatMenu("复制");
-		paste= creatMenu("粘贴");
-		removeNull = creatMenu("移除空行");
-		trim = creatMenu("移除所有项目的首尾空字符");
-		find = creatMenu("查找.. Ctrl+F");
-		findnext = creatMenu("查找下一个 F3");
+		edit = new JMenu(Lang.get("num.menu.edit"));
+		add  = creatMenu("num.menu.add");
+		del  = creatMenu("num.menu.del");
+		copy = creatMenu("num.menu.copy");
+		paste= creatMenu("num.menu.paste");
+		removeNull = creatMenu("num.menu.delnul");
+		trim = creatMenu("num.menu.trim");
+		find = creatMenu("num.menu.find", "Ctrl+F");
+		findnext = creatMenu("num.menu.fnext", "F3");
 		edit.add(add);
 		edit.add(del);
 		edit.add(copy);
@@ -141,27 +142,26 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		edit.add(find);
 		edit.add(findnext);
 		
-		sort = new JMenu("排序/筛选");
-		showall = creatMenu("显示全部");
-		sortfor = new JMenu("按列排序");
-			sortfor.addMenuListener(new MA());
-		filter  = creatMenu("显示包含单词的条目");
-		exclude = creatMenu("滤除包含单词的条目");
+		sort 	= new JMenu(Lang.get("num.menu.sort"));
+		showall = creatMenu("num.menu.shall");
+		sortfor = new JMenu(Lang.get("num.menu.colsor"));
+		sortfor.addMenuListener(new MA());
+		filter  = creatMenu("num.menu.inc");
+		exclude = creatMenu("num.menu.exc");
 		sort.add(showall);
 		sort.add(filter);
 		sort.add(exclude);
 		sort.addSeparator();
 		sort.add(sortfor);
 		
-		rowItem   = new JMenu("列/项目");
-		addRow    = creatMenu("添加一个项目列");
-		removeRow = creatMenu("移除一个项目列");
-		setcols   = creatMenu("更改选择项目的内容..");
+		rowItem   = new JMenu(Lang.get("num.menu.colum"));
+		addRow    = creatMenu("num.menu.addcol");
+		removeRow = creatMenu("num.menu.delcol");
+		setcols   = creatMenu("num.menu.setcol");
 		rowItem.add(addRow);
 		rowItem.add(removeRow);
 		rowItem.addSeparator();
 		rowItem.add(setcols);
-		
 		
 		bar.add(file);
 		bar.add(edit);
@@ -199,8 +199,8 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 	private JMenuItem removeRow;
 	private JMenuItem setcols;
 	
-	private JMenuItem creatMenu(String name) {
-		JMenuItem item = new JMenuItem(name);
+	private JMenuItem creatMenu(String name, String...quick) {
+		JMenuItem item = new JMenuItem(Lang.get(name));
 		item.addActionListener(this);
 		return item;
 	}
@@ -222,14 +222,17 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		public void run() {
 			while( !stop ) {
 				try {
+					String state = Lang.get("num.state", 
+							telModel.getRowCount(), filterModel.getRowCount());
+
 					int[] s = getSelectedRows();
-					String select = "";
 					if( s!=null && s.length>0 ) {
-						select = "\t选择了:"+s.length+"行.";
+						String select = Lang.get("num.selectline", s.length);
+						this.setText(state + "  " + select);
+					} else {
+						this.setText(state);
 					}
-					String state = 	" 总行数:"+telModel.getRowCount()+
-									"\t显示的行数:"+filterModel.getRowCount();
-					this.setText(state+select);
+					
 					Thread.sleep(800);
 				} catch (InterruptedException e) {}
 			}
@@ -304,14 +307,14 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 			//sortModel.quit();
 			//filterModel.quit();
 			
-			table = null;
-			telModel = null;
-			sortModel = null;
-			filterModel = null;
-			tdp = null;
-			stateText = null;
-			popMenu = null;
-			ml = null;
+			table		= null;
+			telModel	= null;
+			sortModel	= null;
+			filterModel	= null;
+			tdp			= null;
+			stateText	= null;
+			popMenu		= null;
+			ml			= null;
 			
 			this.dispose();
 		}catch(Exception er){
@@ -339,38 +342,38 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		}
 		// 改变名字
 		else if( e.getSource()==changename ) {
-			InputDialog input = new InputDialog(null, "新的名字", false);
+			InputDialog input = new InputDialog(null, Lang.get("num.newname"), false);
 			input.setText(tdp.get().name);
 			if( input.getInput()==InputDialog.OK ) {
 				if( input.getResult().length()>1 ){
 					tdp.get().name = input.getResult();
 					setTitle(tdp.get().name);
 				}else{
-					Tools.message("名字必须多于1个字母.");
+					Tools.message(Lang.get("num.namelen"));
 				}
 			}
 		}
 		// 改变密码
 		else if( e.getSource()==changepw ) {
-			InputDialog input = new InputDialog(null, "新的密码", true);
+			InputDialog input = new InputDialog(null, Lang.get("num.newpass"), true);
 			if( input.getInput()==InputDialog.OK ) {
 				if( input.getResult().length()<1 ){
-					Tools.message("密码已经被删除,不使用密码.");
+					Tools.message(Lang.get("num.clearpass"));
 					tdp.get().password = TableDataPack.DEFAULTPASSWORD;
 					return;
 				}else{
-					InputDialog rein = new InputDialog(null, "重新输入一遍", true);
+					InputDialog rein = new InputDialog(null, Lang.get("num.reinput"), true);
 					if( rein.getInput()==InputDialog.OK ) {
 						if( rein.getResult().compareTo( input.getResult() )==0 ) {
 							tdp.get().password = rein.getResult();
-							Tools.message("密码已经更改,下次登录请使用新的密码.");
+							Tools.message(Lang.get("num.passseted"));
 							return;
 						}else{
-							Tools.message("两次输入的密码不同,请重试..");
+							Tools.message(Lang.get("num.repasserr"));
 							return;
 						}
 					}else{
-						Tools.message("放弃更改密码");
+						Tools.message(Lang.get("num.nosetpass"));
 						return;
 					}
 				}
@@ -426,21 +429,21 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		}
 		// 过滤
 		else if( e.getSource()==filter ) {
-			InputDialog in = new InputDialog(null, "输入包含的单词");
+			InputDialog in = new InputDialog(null, Lang.get("num.in.inc"));
 			if( in.getInput()==InputDialog.OK ) {
 				filterModel.IncludeWord( in.getResult() );
 			}
 		}
 		//
 		else if( e.getSource()==exclude ) {
-			InputDialog in = new InputDialog(null, "输入要滤除的单词");
+			InputDialog in = new InputDialog(null, Lang.get("num.in.exc"));
 			if( in.getInput()==InputDialog.OK ) {
 				filterModel.ExcludeWord( in.getResult() );
 			}
 		}
 		// 添加列
 		else if( e.getSource()==addRow ) {
-			InputDialog in = new InputDialog(null, "新列的名字");
+			InputDialog in = new InputDialog(null, Lang.get("num.in.newcoln"));
 			if( in.getInput()==InputDialog.OK ) {
 				String newcolumn = in.getResult().trim();
 				if (newcolumn!=null && newcolumn.length()>0) {
@@ -448,26 +451,26 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 						telModel.addColumn(newcolumn);
 						table.setModel(telModel);
 					} else {
-						Tools.message("'"+newcolumn+"' 列已经存在，请使用不同的列名.");
+						Tools.message(Lang.get("num.colnexist", newcolumn));
 					}
 				} else {
-					Tools.message("请输入有效的列名.");
+					Tools.message(Lang.get("num.reincname"));
 				}
 			}
 		}
 		// 删除列
 		else if( e.getSource()==removeRow ) {
 			if (telModel.getColumnCount()<=1) {
-				Tools.message("有效的数据列只有一行，不能继续删除.");
+				Tools.message(Lang.get("num.nodelcol"));
 				return;
 			}
 
-			ButtonDialog bdg = new ButtonDialog(null, "选择要删除的列");
+			ButtonDialog bdg = new ButtonDialog(null, Lang.get("num.sldelcol"));
 			bdg.addButtons(telModel);
 			
 			if ( bdg.showButtonDialog()==bdg.OK ) {
-				ValidateDialog vd = new ValidateDialog(null, "'"+
-						bdg.getSelectedName()+ "' 列的所有数据都会丢失，确定么？");
+				ValidateDialog vd = new ValidateDialog(null, 
+						Lang.get("num.confirmdel", bdg.getSelectedName()) );
 				
 				if (vd.getResult()==ValidateDialog.OK) {
 					telModel.removeColumn(bdg.getSelectedName());
@@ -479,7 +482,7 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 		else if( e.getSource()==setcols || e.getSource()==psetcols ) {
 			int[] select = getSelectedRows();
 			if(select.length<1) {
-				Tools.message("请先选择要更改的项目");
+				Tools.message(Lang.get("num.slcolval"));
 				return;
 			}
 			// 选择要更改的列
@@ -493,7 +496,7 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 					String ts = (String)telModel.getValueAt(select[x], c);
 					if( ts!=null && ts.trim().length()>0 ) {
 						ValidateDialog vd = 
-							new ValidateDialog(null,"选择的项目有内容了,要覆盖么?");
+							new ValidateDialog(null, Lang.get("num.cfmrelse"));
 						if (vd.getResult()==ValidateDialog.OK) {
 							break;
 						}else{
@@ -502,16 +505,16 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 					}
 				}
 				// 输入列的内容
-				InputDialog ind = new InputDialog(null, "新的内容");
+				InputDialog ind = new InputDialog(null, Lang.get("num.colnewval"));
 				if ( ind.getInput()==InputDialog.OK ) {
 					String news = ind.getResult();
 					for(int x=0; x<select.length; ++x) {
 						telModel.setValueAt(news, select[x], c);
 					}
 					telModel.fireTableDataChanged();
-					Tools.message("修改成功!");
+					Tools.message(Lang.get("num.colvalok"));
 				}else{
-					Tools.message("取消修改..");
+					Tools.message(Lang.get("num.colvalcal"));
 				}
 			}else{
 				return;

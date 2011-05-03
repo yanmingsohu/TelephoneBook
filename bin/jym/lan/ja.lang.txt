@@ -1,0 +1,144 @@
+## 日本語のdefine
+## 文字セット：UTF-8
+## このページの最後の編集：2011年5月3日
+
+
+help.message = 手続きまだプログラムの設計、光のレベルは、\nの先頭n個の説明\
+		vcfファイルは、このチャンスを変更するには、私は、このプログラムは、数年前のだ\nで\
+		いくつかの機能は限られている変更に来てくれる、これらのコードはオープンソースです\nと是正するために決定\
+		あり：http://github.com/yanmingsohu/TelephoneBook
+
+
+def.android.name =輸入Androidの電話帳
+def.undefine =未定義
+def.bookname =自分の携帯電話帳
+def.colnames =名前,携帯電話,自宅の電話,関係,住所,日付,その他の
+
+
+all.name =電話帳
+all.close =オフ
+all.ok = [OK]を
+all.cancel = キャンセル
+all.detail = 詳細については
+all.yes=です
+all.no =いいえ
+
+
+mana.isopend=このディレクトリが開かれている。
+mana.menu.file =ファイル
+mana.menu.openex =開いている既存の電話帳..
+mana.menu.delex =既存の電話帳を削除..
+mana.menu.openex =オープンは、電話帳から選択したファイルを..
+mana.menu.crnew=新しいディレクトリを作成..
+mana.menu.openvcf =オープンVCFの（Androidの）電話帳..
+mana.menu.quit =終了
+mana.menu.window =ウィンドウ
+mana.menu.casc =カスケードすべてのウィンドウ
+mana.menu.tile =タイル、すべてのウィンドウを
+mana.menu.closeall=は、すべてのウィンドウを閉じます
+mana.menu.chfeel =交換の皮膚
+mana.menu.swing =皮膚のスイング
+mana.menu.sysfeel=お使いのシステムの皮膚に行
+mana.menu.help =ヘルプ
+mana.menu.about =【電話】の上
+mana.type.tel =電話帳文書
+mana.type.vcf = Androidの電話帳ファイル
+mana.in.pass =パスワード
+mana.in.vpass =パスワードの確認
+mana.openbook =オープン電話帳..
+mana.delbook=電話帳を削除する！
+mana.delcfm=本当にディレクトリを削除するは:%1s？
+mana.bookdelete=電話帳を削除されています：%1s 秒ローカルファイル：%2s の補数を
+mana.delfail =電話帳を削除：%1s は失敗..
+mana.newbookpass =新しい電話ディレクトリのパスワード
+mana.nousepass=パスワードを使用しないでください。
+mana.vpasserr =パスワード認証エラーが発生しました。
+mana.calnewbook=新しい文書をキャンセル。
+
+
+num.menu.add =追加
+num.menu.del =削除
+num.menu.copy =コピー
+num.menu.paste =貼り付け
+num.menu.setcol =変更プロジェクトの選択..
+num.menu.file =ファイル
+num.menu.save =名前を付けて保存
+num.menu.rename =変更ディレクトリ名..
+num.menu.repass =パスワードの変更..
+num.menu.qnsave =以前に変更されたデータを保存せずに終了
+num.menu.qsave =保存して終了
+num.menu.edit =編集
+num.menu.delnul=空白行を削除
+num.menu.trim = すべての項目null文字と終了削除
+num.menu.find =検索..
+num.menu.fnext =次を検索
+num.menu.sort =並べ替え/フィルタ
+num.menu.shall =すべて表示
+num.menu.colsor =列で並べ替え
+num.menu.inc =単語を含むエントリを表示します
+num.menu.exc =単語を含むフィルタのエントリ
+num.menu.colum =列/項目
+num.menu.addcol=アイテムリストを見る
+num.menu.delcol=プロジェクトリストを削除します。
+num.menu.setcol =変更プロジェクトの選択..
+num.selectline =選択：は%1sライン。
+num.state =行の合計数は：%2s の補数：%1s 秒行数を示しています 
+num.newname =新しい名前
+num.namelen =名が複数の文字である必要があります。
+num.newpass =新しいパスワード
+num.clearpass =パスワードは、パスワードを使用しない場合、削除されています。
+num.reinput=を再再度入力します。
+num.passseted =パス​​ワードを新しいパスワードを使用してください、次のログイン情報を変更されています。
+num.repasserr = 2のパスワードは、もう一度試してください。異なっている..
+num.nosetpass=あなたのパスワードを変更するにはあきらめる
+num.in.inc =入力が単語が含まれている
+num.in.exc =除外する単語を入力してください
+num.in.newcoln =新しい列の名前
+num.colnexist ='は%1s'列には既に別の列名を使用してください、存在し​​ています。
+num.reinc​​name=有効な列名を入力してください。
+num.nodelcol =つだけ行を有効なデータが、削除する続行することはできません。
+num.sldelcol =選択列が削除される
+num.confirmdel =すべてのデータから%1s秒は確かに、失われるのだろうか？
+num.slcolvalは=を変更したい項目を選択してください。
+num.cfmrelse =選択されたプロジェクトの内容は、それをカバーするには？
+num.colnewval =新しいコンテンツ
+num.colvalok =変更成功！
+num.colvalcal =キャンセル変更..
+
+
+tel.brow.nobook =電話帳を確立されていません。
+tel.brow.inpass =パスワード
+tel.brow.passwr =パスワードエラー
+
+
+about.about =オン。
+about.mess1 =プログラムはフリーソフトウェアなので、任意のディストリビューションを使用することができます。
+about.mess2 =いかなる損害についても、この手順の使用のために、著者は一切の責任を負いません。
+about.unachieve =怠け者で、関数の実装されていません。ご連絡ください、より多くの機能を得るために、個の必要性を
+
+
+bu.howcol =その列の変更したのか？
+
+
+vcf.type.n =名前
+vcf.type.fn =名前
+vcf.type.tel =電話
+vcf.type.msn = MSNの
+vcf.type.aim = QQの
+vcf.type.note =備考
+vcf.type.url =のURL
+vcf.type.title =タイトル
+vcf.type.org =会社
+vcf.type.adr =アドレス
+vcf.type.email = Eメール
+vcf.type.home =家族
+vcf.type.work =仕事
+vcf.type.voice =ボイス
+vcf.type.cust =カスタム
+
+
+error.vcfline =見つかりませんでした構文エラー、'：'区切り、最初の%1秒の行に
+error.vcf.copyitem =指定されていないお問い合わせ rowItem
+error.filefail=有効な電話帳ファイルではありません。\n個のファイルが破損または不足している
+error.password =パスワードエラー
+error.parm =不正な関数のパラメータ

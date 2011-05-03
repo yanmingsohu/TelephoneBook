@@ -22,6 +22,9 @@ public class Tools {
 	public static void message(String s) {
 		md.show(s);
 	}
+	public static void messageid(String id) {
+		message(Lang.get(id));
+	}
 	public static void p(Object o) {
 		System.out.println(o);
 	}

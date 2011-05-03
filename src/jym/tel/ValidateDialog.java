@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
+import jym.lan.Lang;
 import jym.wit.Tools;
 
 /**
@@ -23,8 +24,8 @@ public class ValidateDialog extends JDialog {
 	
 	private static final long serialVersionUID = -2207991857109781194L;
 	
-	private JButton ok = new JButton("   ÊÇ   ");
-	private JButton cancel = new JButton("   ·ñ   ");
+	private JButton ok = new JButton(Lang.get("all.yes"));
+	private JButton cancel = new JButton(Lang.get("all.no"));
 	
 	public static final int OK = 1;
 	public static final int CANCEL = 2;
@@ -77,15 +78,15 @@ public class ValidateDialog extends JDialog {
 	private class WA extends WindowAdapter implements ActionListener {
 		public void windowClosing(WindowEvent e) {
 			setVisible(false);
-			result=CANCEL;
+			result = CANCEL;
 		}
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==ok) {
+			if (e.getSource() == ok) {
 				setVisible(false);
-				result=OK;
-			}else if(e.getSource()==cancel) {
+				result = OK;
+			} else if (e.getSource() == cancel) {
 				setVisible(false);
-				result=CANCEL;
+				result = CANCEL;
 			}
 		}
 	}

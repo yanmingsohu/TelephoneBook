@@ -107,7 +107,7 @@ public class ManageFrame extends JFrame {
 		for (int i=0; i<inFrameCont; ++i) {
 			if ( inFrame[i]!=null && !inFrame[i].isClosed() ) {
 				if ( inFrame[i].isFileOpened(f) ) {
-					Tools.message("这个电话簿已经打开.");
+					Tools.messageid("mana.isopend");
 					return true;
 				}
 			}
@@ -159,13 +159,13 @@ public class ManageFrame extends JFrame {
 	private JMenuBar creatMenu() {
 		JMenuBar menubar = new JMenuBar();
 		
-		open  	= new JMenu("文件");
-		exits	= CreatMenuItem("打开已有的电话簿..");
-		del		= CreatMenuItem("删除已有的电话簿..");
-		file	= CreatMenuItem("从选择的文件打开电话簿..");
-		creat	= CreatMenuItem("新建一个电话簿..");
-		ivcf	= CreatMenuItem("打开VCF(Android)电话簿..");
-		quit 	= CreatMenuItem("退出  Alt+F4");
+		open  	= new JMenu(Lang.get("mana.menu.file"));
+		exits	= CreatMenuItem("mana.menu.openex");
+		del		= CreatMenuItem("mana.menu.delex");
+		file	= CreatMenuItem("mana.menu.openex");
+		creat	= CreatMenuItem("mana.menu.crnew");
+		ivcf	= CreatMenuItem("mana.menu.openvcf");
+		quit 	= CreatMenuItem("mana.menu.quit", "Alt+F4");
 		open.add(exits);
 		open.add(creat);
 		open.add(file);
@@ -175,26 +175,26 @@ public class ManageFrame extends JFrame {
 		open.addSeparator();
 		open.add(quit);
 		
-		window	= new JMenu("窗口");
-		cascade = CreatMenuItem("层叠所有窗口");
-		tile 	= CreatMenuItem("平铺所有窗口");
-		removeall=CreatMenuItem("关闭所有窗口");
+		window	= new JMenu(Lang.get("mana.menu.window"));
+		cascade = CreatMenuItem("mana.menu.casc");
+		tile 	= CreatMenuItem("mana.menu.tile");
+		removeall=CreatMenuItem("mana.menu.closeall");
 		window.add(cascade);
 		window.add(tile);
 		window.addSeparator();
 		window.add(removeall);
 		
-		lookandfeel = new JMenu("更换皮肤");
-		swingfeel	= CreatMenuItem("Swing的皮肤"); 
-		nativefeel	= CreatMenuItem("符合你系统的皮肤");
+		lookandfeel = new JMenu(Lang.get("mana.menu.chfeel"));
+		swingfeel	= CreatMenuItem("mana.menu.swing"); 
+		nativefeel	= CreatMenuItem("mana.menu.sysfeel");
 		lookandfeel.add(swingfeel);
 		lookandfeel.add(nativefeel);
 		lookandfeel.addSeparator();
 		creatFeelMenuItem(lookandfeel);
 		
-		abouthelp = new JMenu("帮助");
-		about = CreatMenuItem("关于 【电话簿】");
-		help  = CreatMenuItem("帮助");
+		abouthelp = new JMenu(Lang.get("mana.menu.help"));
+		about = CreatMenuItem("mana.menu.about");
+		help  = CreatMenuItem("mana.menu.help");
 		abouthelp.add(help);
 		abouthelp.addSeparator();
 		abouthelp.add(about);
@@ -207,8 +207,8 @@ public class ManageFrame extends JFrame {
 		return menubar;
 	}
 	
-	private JMenuItem CreatMenuItem(String name) {
-		JMenuItem item = new JMenuItem(name);
+	private JMenuItem CreatMenuItem(String name, String...quick) {
+		JMenuItem item = new JMenuItem(Lang.get(name));
 		item.addActionListener(ml);
 		return item;
 	}
@@ -231,7 +231,8 @@ public class ManageFrame extends JFrame {
 			// 从文件打开
 			if(src==file) {
 				JFileChooser chooser = new JFileChooser();
-				FileFilter filter = new FileNameExtensionFilter("电话簿文档 *.tel", "tel");
+				FileFilter filter = new FileNameExtensionFilter(
+						Lang.get("mana.type.tel") + " *.tel", "tel");
 				chooser.setFileFilter(filter);
 				
 				if ( chooser.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION  ) {
@@ -242,7 +243,7 @@ public class ManageFrame extends JFrame {
 					try{
 						new DecodeStream(f, password).close();
 					}catch(Exception eee) {
-						InputDialog input = new InputDialog(frame, "输入密码", true);
+						InputDialog input = new InputDialog(frame, Lang.get("mana.in.pass"), true);
 						if( input.getInput()==InputDialog.OK ) {
 							password = input.getResult();
 						}else{
@@ -261,7 +262,7 @@ public class ManageFrame extends JFrame {
 			}
 			// 打开现有的
 			else if(src==exits) {
-				TelphoneBrowse tb = new TelphoneBrowse(frame, "打开一个电话簿..");
+				TelphoneBrowse tb = new TelphoneBrowse(frame, Lang.get("mana.openbook"));
 				File f = tb.getResult();
 				if ( testFileOpened(f) ) return;
 				if ( f!=null ) {
@@ -278,7 +279,8 @@ public class ManageFrame extends JFrame {
 			// 导入VCF文件
 			else if (src==ivcf) {
 				JFileChooser chooser = new JFileChooser();
-				FileFilter filter = new FileNameExtensionFilter("Android电话簿文件 *.vcf", "vcf");
+				FileFilter filter = new FileNameExtensionFilter(
+						Lang.get("mana.type.vcf") + " *.vcf", "vcf");
 				chooser.setFileFilter(filter);
 				
 				if ( chooser.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION  ) {
@@ -296,17 +298,17 @@ public class ManageFrame extends JFrame {
 			// 删除现有的 
 			else if(src==del) {
 				TelphoneBrowse tb = 
-					new TelphoneBrowse(frame, "删除一个电话簿!!",TelphoneBrowse.RIGHT);
+					new TelphoneBrowse(frame, Lang.get("mana.delbook"), TelphoneBrowse.RIGHT);
 				File f = tb.getResult();
 				if ( testFileOpened(f) ) return;
 				if ( f!=null ) {
 					ValidateDialog confirm = 
-						new ValidateDialog(frame, "真的要删除电话簿: "+tb.getName()+" ?" );
+						new ValidateDialog(frame, Lang.get("mana.delcfm", tb.getName()) );
 					if( confirm.getResult()==ValidateDialog.OK ) {
 						if( f.delete() ) {
-							Tools.message("已经删除电话本: "+tb.getName()+"\nlocal file: "+f.toString());
+							Tools.message(Lang.get("mana.bookdelete", tb.getName(), f.toString()) );
 						}else{
-							Tools.message("删除电话本: "+tb.getName()+" 失败..");
+							Tools.message(Lang.get("mana.delfail", tb.getName()) );
 						}
 					}
 				}
@@ -314,22 +316,22 @@ public class ManageFrame extends JFrame {
 			// 新建
 			else if(src==creat) {
 				String password = null;
-				InputDialog input = new InputDialog(frame, "新建电话簿密码", true);
+				InputDialog input = new InputDialog(frame, Lang.get("mana.newbookpass"), true);
 				
 				if( input.getInput()==InputDialog.OK ) {
 					password = input.getResult();
 					if( password.length()<1 ) {
 						password = "jym";
-						Tools.message("不使用密码.");
+						Tools.messageid("mana.nousepass");
 					}else{
-						InputDialog input2 = new InputDialog(frame, "验证密码", true);
+						InputDialog input2 = new InputDialog(frame, Lang.get("mana.in.vpass"), true);
 						if( input2.getInput()==InputDialog.OK ) {
 							if( input2.getResult().compareTo(password)!=0 ) {
-								Tools.message("密码验证错误.");
+								Tools.messageid("mana.vpasserr");
 								return;
 							}
 						}else{
-							Tools.message("取消新建文件.");
+							Tools.messageid("mana.calnewbook");
 							return;
 						}
 					}

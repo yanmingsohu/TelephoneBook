@@ -4,16 +4,19 @@ package jym.tel;
 import java.io.File;
 import java.io.IOException;
 
+import jym.lan.Lang;
 import jym.wit.Tools;
 
 public class TableDataPack {
 	
 	private Data d;
 	
-	public static final String[] DEFALUTNAME = {
-		"姓名","手机","家庭电话","关系","住址","日期","其他",
-	};
+	public static final String[] DEFALUTNAME;
 	public static final String DEFAULTPASSWORD = "jym";
+	
+	static {
+		DEFALUTNAME = Lang.get("def.colnames").split(",");
+	}
 	
 	
 	public TableDataPack() {
@@ -45,7 +48,7 @@ public class TableDataPack {
 		d.rowCount 		= 5;
 		d.data 			= new Object[d.rowCount][d.columnCount];
 		d.file 			= Tools.getRandFile();
-		d.name 			= "我的电话簿";
+		d.name 			= Lang.get("def.bookname");
 		d.password		= DEFAULTPASSWORD;
 		
 		return data;
@@ -55,7 +58,7 @@ public class TableDataPack {
 	 * 写入
 	 */
 	public void write(Data d) throws IOException {
-		if (d!=this.d) throw new IOException("非法的函数参数");
+		if (d!=this.d) throw new IOException(Lang.get("error.parm"));
 		EncodeStream out = new EncodeStream(d.file, d.password, d.name);
 		// 写入数据头
 		byte[] col = intTo4bytes( d.columnCount );
