@@ -236,7 +236,6 @@ public class TelTableModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 	
-	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		if (d.data!=null && d.data[0]!=null && d.data[0][columnIndex]!=null) {
 			return d.data[0][columnIndex].getClass();

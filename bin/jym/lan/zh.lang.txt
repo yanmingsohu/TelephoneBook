@@ -135,6 +135,7 @@ vcf.type.home	= 家庭
 vcf.type.work	= 工作
 vcf.type.voice	= 语音
 vcf.type.cust	= 自定义
+vcf.type.photo	= 照片
 
 				
 error.vcfline		= 语法错误,没有找到':'分隔符,在第%1s行

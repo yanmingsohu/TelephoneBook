@@ -14,6 +14,7 @@ public class Type {
 	
 	static {
 	//	set("N", 		Lang.get("vcf.type.n")			);
+		set("PHOTO",	Lang.get("vcf.type.photo")		);
 		set("FN",		Lang.get("vcf.type.fn")			);
 		set("TEL",		Lang.get("vcf.type.tel")		);
 		set("X-MSN",	Lang.get("vcf.type.msn")		);

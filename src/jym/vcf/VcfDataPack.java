@@ -13,9 +13,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.AbstractCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -74,8 +76,9 @@ public class VcfDataPack extends TableDataPack {
 	}
 
 	public void setEditor(IEditorSet setter) {
-		setter.set(Object.class, (TableCellEditor) new VcfEditor());
-	//	setter.set(Object.class, (TableCellRenderer) new VcfEditor());
+		VcfEditor editor = new VcfEditor();
+		setter.set(Object.class, (TableCellEditor) editor);
+		setter.set(Object.class, (TableCellRenderer) editor);
 	}
 	
 	public Object[] addRow(int rowIdx) {
@@ -117,15 +120,33 @@ public class VcfDataPack extends TableDataPack {
 			implements TableCellEditor, TableCellRenderer {
 
 		private static final long serialVersionUID = -6778876718985812782L;
+		private DefaultTableCellRenderer defrand;
 		private Object value;
 		
+		
+		public VcfEditor() {
+			defrand = new DefaultTableCellRenderer();
+		}
 
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
 				int column) {
 			
-			return getTableCellEditorComponent(
-					table, value, isSelected, row, column);
+			if (value instanceof Item) {
+				Item item = (Item) value;
+	
+				if (item.isImage()) {
+					ImageIcon icon = new ImageIcon(item.getImage());
+					JLabel img = new JLabel();
+					img.setIcon(icon);
+					
+					table.setRowHeight(row, icon.getIconHeight());
+					return img;
+				}
+			}
+			
+			return defrand.getTableCellRendererComponent(
+					table, value, isSelected, hasFocus, row, column);
 		}
 		
 		public Component getTableCellEditorComponent(JTable table,
@@ -159,9 +180,16 @@ public class VcfDataPack extends TableDataPack {
 			if (value instanceof Item) {
 				Item item = (Item) value;
 
-				if (item.getValues().length==1) {
+				if (item.isImage()) {
+					ImageIcon icon = new ImageIcon(item.getImage());
+					JLabel img = new JLabel();
+					img.setIcon(icon);
+					return img;
+				}
+				else if (item.getValues().length==1) {
 					return new TextEditor(item);
-				} else {
+				} 
+				else {
 					return new MutiColumnEditor(item);
 				}
 			} 

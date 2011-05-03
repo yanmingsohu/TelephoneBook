@@ -120,21 +120,22 @@ about.unachieve = of the lazy, function is not implemented. \n need to get more 
 bu.howcol = change in that column?
 
 
-vcf.type.n = name
-vcf.type.fn = name
+vcf.type.n = Name
+vcf.type.fn = Name
 vcf.type.tel = Phone
 vcf.type.msn = MSN
 vcf.type.aim = QQ
 vcf.type.note = Remarks
 vcf.type.url = URL
-vcf.type.title = title
+vcf.type.title = Title
 vcf.type.org = Company
-vcf.type.adr = address
+vcf.type.adr = Address
 vcf.type.email = E-mail
-vcf.type.home = family
-vcf.type.work = work
+vcf.type.home = Family
+vcf.type.work = Work
 vcf.type.voice = Voice
 vcf.type.cust = Custom
+vcf.type.photo = Photo
 
 
 error.vcfline = syntax error, not found ':' separator, in the first %1s line

@@ -103,6 +103,11 @@ class SortModel extends AbstractTableModel implements TableModelListener {
 		this.rows = new Row[0];
 		this.sortColumn = -1;
 	}
+
+	@Override
+	public Class<?> getColumnClass(int arg0) {
+		return base.getColumnClass(arg0);
+	}
 }
 
 /**
@@ -237,6 +242,10 @@ class FilterModel extends AbstractTableModel implements TableModelListener {
 		default:
 			allDisplay();
 		}
+	}
+
+	public Class<?> getColumnClass(int arg0) {
+		return base.getColumnClass(arg0);
 	}
 	
 	public void quit() {

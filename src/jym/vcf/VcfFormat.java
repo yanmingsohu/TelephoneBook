@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import jym.lan.Lang;
+import jym.wit.Base64;
 import jym.wit.Tools;
 
 
@@ -96,7 +97,7 @@ public class VcfFormat {
 			line_c++;
 			
 			while (line!=null && line.equalsIgnoreCase(END)==false) {
-				Item i = new Item(line);
+				Item i = new Item(line, in);
 				addItem(i);
 				
 				line = in.readLine();
@@ -140,16 +141,37 @@ public class VcfFormat {
 		private Map<String, String> props;
 		private String type;
 		private Contact _c;
+		private byte[] img;
 		
 
 		private Item() {}
 		
-		private Item(String line) throws IOException {
+		private Item(String line, BufferedReader in) throws IOException {
 			String[] _t = line.split(":");
 			if (_t.length!=2) {
 				throw new IOException(Lang.get("error.vcfline", line_c));
 			}
 			set(_t[0], _t[1]);
+			readImg(_t[1], in);
+		}
+		
+		private void readImg(String line, BufferedReader in) throws IOException {
+			if (type.equalsIgnoreCase("PHOTO")) {
+				String enc = props.get("ENCODING");
+				if (enc==null || !enc.equalsIgnoreCase("BASE64")) {
+					throw new IOException("PHOTO unsupport ENCODING:" + enc);
+				}
+				
+				StringBuilder buff = new StringBuilder(line);
+				line = in.readLine();
+				
+				while (line!=null && line.length()>0) {
+					buff.append(line.trim());
+					line = in.readLine();
+				}
+				
+				img = Base64.decode(buff.toString());
+			}
 		}
 		
 		private void set(String prop, String value) {
@@ -237,10 +259,19 @@ public class VcfFormat {
 			rows.remove(this._c);
 		}
 		
+		/** ....œ°¿√ */
 		public void out(Appendable out) throws IOException {
 			if (cannotSave()) return;
 			
-			String[] c_values = QuotedCoder.encode(props, values);
+			String[] c_values = null;
+			
+			if (isImage()) {
+				c_values = values;
+			} else {
+				c_values = QuotedCoder.encode(props, values);
+				delNull(c_values);
+			}
+			
 			out.append(type);
 			
 			Iterator<String> itr = props.keySet().iterator();
@@ -256,17 +287,32 @@ public class VcfFormat {
 			}
 			
 			out.append(':');
-			delNull(c_values);
 			
-			if (c_values.length>0) {
-				out.append(c_values[0]);
-				for (int i=1; i<c_values.length; ++i) {
-					out.append(';');
-					out.append(c_values[i]);
+			if (isImage()) {
+				int a = 48;
+				String en = new String(Base64.encode(img));
+				out.append(sub(en, 0, a)).append('\n');
+				
+				while (a<en.length()) {
+					out.append(' ').append(sub(en, a, a+73)).append('\n');
+					a += 73;
+				}
+			} else {
+				if (c_values.length>0) {
+					out.append(c_values[0]);
+					for (int i=1; i<c_values.length; ++i) {
+						out.append(';');
+						out.append(c_values[i]);
+					}
 				}
 			}
 			
 			out.append('\n');
+		}
+		
+		private String sub(String str, int begin, int end) {
+			if (end>str.length()) end = str.length();
+			return str.substring(begin, end);
 		}
 		
 		private boolean cannotSave() {
@@ -284,6 +330,15 @@ public class VcfFormat {
 					s[i] = "";
 				}
 			}
+		}
+		
+		public boolean isImage() {
+			return img!=null;
+		}
+		
+		public byte[] getImage() {
+			if (!isImage()) throw new IllegalStateException();
+			return img;
 		}
 
 		public final String[] getValues() {

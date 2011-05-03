@@ -135,6 +135,7 @@ vcf.type.home =家族
 vcf.type.work =仕事
 vcf.type.voice =ボイス
 vcf.type.cust =カスタム
+vcf.type.photo = 写真
 
 
 error.vcfline =見つかりませんでした構文エラー、'：'区切り、最初の%1秒の行に
