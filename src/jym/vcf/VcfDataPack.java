@@ -135,9 +135,9 @@ public class VcfDataPack extends TableDataPack {
 			if (value instanceof Item) {
 				Item item = (Item) value;
 	
-				if (item.isImage()) {
-					ImageIcon icon = new ImageIcon(item.getImage());
+				if (item.isImage() && item.getImage()!=null) {
 					JLabel img = new JLabel();
+					ImageIcon icon = new ImageIcon(item.getImage());
 					img.setIcon(icon);
 					
 					table.setRowHeight(row, icon.getIconHeight());
@@ -181,9 +181,11 @@ public class VcfDataPack extends TableDataPack {
 				Item item = (Item) value;
 
 				if (item.isImage()) {
-					ImageIcon icon = new ImageIcon(item.getImage());
 					JLabel img = new JLabel();
-					img.setIcon(icon);
+					if (item.getImage()!=null) {
+						ImageIcon icon = new ImageIcon(item.getImage());
+						img.setIcon(icon);
+					}
 					return img;
 				}
 				else if (item.getValues().length==1) {

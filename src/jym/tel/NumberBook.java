@@ -84,11 +84,11 @@ public class NumberBook extends JInternalFrame implements ActionListener {
 	
 	/** 建立弹出式菜单 */
 	private void creatPopMenu() {
-		padd  = creatMenu(Lang.get("num.menu.add"));
-		pdel  = creatMenu(Lang.get("num.menu.del"));
-		pcopy = creatMenu(Lang.get("num.menu.copy"));
-		ppaste= creatMenu(Lang.get("num.menu.paste"));
-		psetcols = creatMenu(Lang.get("num.menu.setcol"));
+		padd  = creatMenu("num.menu.add");
+		pdel  = creatMenu("num.menu.del");
+		pcopy = creatMenu("num.menu.copy");
+		ppaste= creatMenu("num.menu.paste");
+		psetcols = creatMenu("num.menu.setcol");
 		
 		popMenu.add(padd);
 		popMenu.add(pcopy);

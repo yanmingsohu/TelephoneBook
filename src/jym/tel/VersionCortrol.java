@@ -6,9 +6,9 @@ package jym.tel;
  */
 public class VersionCortrol {
 	
-	public static final String version = "v0.52";
+	public static final String version = "v0.53";
 	public static final String programname = "µç»°²¾ ";
-	public static final String lasteditdate = "2011.5.3";
+	public static final String lasteditdate = "2011.5.4";
 	public static final String time = "CatfoOD 2008-2011";
 	
 	public static final String net = "https://github.com/yanmingsohu/";
