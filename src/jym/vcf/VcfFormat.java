@@ -19,10 +19,15 @@ import jym.wit.Base64;
 import jym.wit.Tools;
 
 
+/**
+ * http://www.ietf.org/rfc/rfc2426.txt
+ */
 public class VcfFormat {
-
+	
+	private final static int MAX_LINE_LEN = 2048; 
 	private final static String START = "BEGIN:VCARD";
 	private final static String END = "END:VCARD";
+	
 	private List<Contact> rows;
 	private Set<String> columns;
 	private int line_c = 1;
@@ -36,17 +41,18 @@ public class VcfFormat {
 	}
 	
 	private void parse(BufferedReader in) throws IOException {
-		String line = in.readLine();
 		rows = new ArrayList<Contact>();
 		columns = new TreeSet<String>(new Type.Sorter());
-		
-		while (line!=null) {
+
+		while (true) {
+			String line = in.readLine();
+			line_c++;
+			if (line==null) break;
+			
 			if (line.equalsIgnoreCase(START)) {
 				Contact c = new Contact(in);
 				rows.add(c);
 			}
-			line = in.readLine();
-			line_c++;
 		}
 	}
 	
@@ -93,15 +99,16 @@ public class VcfFormat {
 		
 		private Contact(BufferedReader in) throws IOException {
 			this();
-			String line = in.readLine();
-			line_c++;
 			
-			while (line!=null && line.equalsIgnoreCase(END)==false) {
+			while (true) {
+				String line = in.readLine();
+				line_c++;
+				
+				if (line==null || line.equalsIgnoreCase(END))
+					break;
+				
 				Item i = new Item(line, in);
 				addItem(i);
-				
-				line = in.readLine();
-				line_c++;
 			}
 		}
 		
@@ -151,34 +158,63 @@ public class VcfFormat {
 			if (_t.length!=2) {
 				throw new IOException(Lang.get("error.vcfline", line_c) + ":" + line);
 			}
-			set(_t[0], _t[1]);
-			readImg(_t[1], in);
-		}
-		
-		private void readImg(String line, BufferedReader in) throws IOException {
-			if (isImage()) {
-				String enc = props.get("ENCODING");
-				if (enc==null || !enc.equalsIgnoreCase("BASE64")) {
-					throw new IOException("PHOTO unsupport ENCODING:" + enc);
-				}
+			
+			setProp(_t[0]);
+			
+			/* 数据可能是多行的 */
+			if (!isImage()) {
+				StringBuilder buffer = new StringBuilder(_t[1]);
 				
-				StringBuilder buff = new StringBuilder(line);
-				line = in.readLine();
-				line_c++;
-				
-				while (line!=null && line.length()>0) {
-					buff.append(line.trim());
-					line = in.readLine();
+				while (true) {
+					in.mark(MAX_LINE_LEN);
+					String tmp = in.readLine();
+					if (tmp.indexOf(':')>=0) {
+						in.reset();
+						break;
+					}
 					line_c++;
+					
+					if (tmp==null || tmp.length()<=0) break;
+					tmp = tmp.trim();
+					buffer.append(tmp);
 				}
 				
-				img = Base64.decode(buff.toString());
+				_t[1] = buffer.toString();
+			}
+			
+			setValue(_t[1]);
+			
+			if (isImage()) {
+				readImg(_t[1], in);
 			}
 		}
 		
-		private void set(String prop, String value) {
-			values = value.split(";", -1);
+		private void readImg(String line, BufferedReader in) throws IOException {
+			String enc = props.get("ENCODING");
+			if (enc==null || !enc.equalsIgnoreCase("BASE64")) {
+				throw new IOException("PHOTO unsupport ENCODING:" + enc);
+			}
 			
+			StringBuilder buff = new StringBuilder(line);
+			
+			while (true) {
+				line = in.readLine();
+				line_c++;
+				if (line==null || line.length()<=0) break;
+				buff.append(line.trim());
+			}
+			
+			img = Base64.decode(buff.toString());
+		}
+		
+		/** 解析数据 */
+		private void setValue(String value) {
+			values = value.split(";", -1);
+			QuotedCoder.decode(props, values);
+		}
+		
+		/** 解析属性 */
+		private void setProp(String prop) {
 			String[] _n = prop.split(";");
 			props = new HashMap<String, String>();
 			
@@ -198,7 +234,6 @@ public class VcfFormat {
 			}
 			
 			initName(_n[0]);
-			QuotedCoder.decode(props, values);
 		}
 		
 		private void initName(String _name) {
@@ -346,7 +381,7 @@ public class VcfFormat {
 		}
 		
 		public boolean isImage() {
-			return type.equalsIgnoreCase("PHOTO");
+			return type.equalsIgnoreCase(Type.PHOTO);
 		}
 		
 		/** 可以返回null */

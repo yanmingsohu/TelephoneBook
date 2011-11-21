@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
+/** ¶àÓïÑÔ·ûºÅÓ³Éä */
 public class Lang {
 	
 	private static final Properties lang;

@@ -81,6 +81,7 @@ public class InputDialog extends JDialog {
 
 		setSize(400, 110);
 		Tools.center(this);
+		validate();
 	}
 	
 	/**

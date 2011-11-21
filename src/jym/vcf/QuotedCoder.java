@@ -9,6 +9,9 @@ import jym.tel.TableDataPack;
 
 public class QuotedCoder {
 	
+	/** 换行字符数 */
+	public static final int INSERT_ENTER_CNT = 20;
+	
 	/**
 	 * 编码字符串, 返回编码后的新的字符串数组, 如果字符串无需编码, 则返回values本身
 	 * @param props
@@ -55,6 +58,8 @@ public class QuotedCoder {
 		}
 	}
 	
+
+	/** 返回的字符串根据长度会插入换行 */
 	private static String string2quoted(String str, String charset) {
 		try {
 			byte[] _b = str.getBytes(charset);
@@ -65,26 +70,42 @@ public class QuotedCoder {
 				out.append( Integer
 						.toHexString( TableDataPack.toInt(_b[i]) )
 						.toUpperCase() );
+				
+				if (_b.length > INSERT_ENTER_CNT) {
+					if (i % INSERT_ENTER_CNT == INSERT_ENTER_CNT-1) {
+						out.append('\n');
+					}
+				}
 			}
 			
 			str = out.toString();
 		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
 		
 		return str;
 	}
 	
 	private static String quoted2string(String str, String charset) {
-		String[] _t = str.split("=");
-		byte[] _b = new byte[_t.length-1];
+		String[] _t = str.split("=", 0);
+		byte[] _b = new byte[_t.length];
+		int bi = 0;
 		
-		for (int i=1; i<_t.length; ++i) {
-			_b[i-1] = (byte) Integer.parseInt(_t[i], 16);
+		for (int i=0; i<_t.length; ++i) {
+			try {
+				if (_t[i].length()>0) {
+					_b[bi] = (byte) Integer.parseInt(_t[i], 16);
+					bi++;
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		try {
-			str = new String(_b, charset);
+			str = new String(_b, 0, bi, charset);
 		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
 		return str;
 	}

@@ -175,7 +175,7 @@ class FilterModel extends AbstractTableModel implements TableModelListener {
 		
 		for(int r=0; r<in.length; ++r) {
 			for(int c=base.getColumnCount()-1; c>=0; --c) {
-				String word1 = (String)( base.getValueAt(rows[r], c) );
+				String word1 = String.valueOf( base.getValueAt(rows[r], c) );
 				
 				if ( word1!=null ) {
 					if ( mode==INCLUDE && word1.lastIndexOf(word)!=-1 ) {

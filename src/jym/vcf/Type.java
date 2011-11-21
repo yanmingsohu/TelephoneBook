@@ -12,6 +12,10 @@ public class Type {
 	private final static Map<String, Integer> sorter = new HashMap<String, Integer>();
 	private static Integer count = 0;
 	
+	/** ÕÕÆ¬ÀàÐÍ×Ö·û´® */
+	public final static String PHOTO = "PHOTO";
+	
+	
 	static {
 	//	set("N", 		Lang.get("vcf.type.n")			);
 		set("PHOTO",	Lang.get("vcf.type.photo")		);
