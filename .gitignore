@@ -1,6 +1,7 @@
 .settings
 config/*.*
 log/*
+books/*
 
 *.class
 *.exe

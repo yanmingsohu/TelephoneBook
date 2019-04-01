@@ -56,7 +56,7 @@ public class TelphoneBrowse extends JDialog implements ActionListener {
 		manager.setHgap(0);
 		this.setLayout(manager);
 		
-		File file = new File(".");
+		File file = new File("./books");
 		File[] filelist = file.listFiles();
 		int count = 0;
 		for(int i=0; i<filelist.length; ++i) {

@@ -47,7 +47,7 @@ public class Tools {
 	public static File getRandFile() {
 		File file;
 		do{
-			file = new File( Tools.getRandString()+".tel" );
+			file = new File( "books/"+ Tools.getRandString()+".tel" );
 		}while(file.exists());
 		
 		return file;

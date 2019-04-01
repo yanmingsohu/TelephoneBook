@@ -24,7 +24,7 @@ import jym.wit.Tools;
  */
 public class VcfFormat {
 	
-	private final static int MAX_LINE_LEN = 2048; 
+	private final static int MAX_LINE_LEN = 9999; 
 	private final static String START = "BEGIN:VCARD";
 	private final static String END = "END:VCARD";
 	
@@ -99,6 +99,7 @@ public class VcfFormat {
 		
 		private Contact(BufferedReader in) throws IOException {
 			this();
+			StringBuffer msg = new StringBuffer();
 			
 			while (true) {
 				String line = in.readLine();
@@ -107,8 +108,17 @@ public class VcfFormat {
 				if (line==null || line.equalsIgnoreCase(END))
 					break;
 				
-				Item i = new Item(line, in);
-				addItem(i);
+				try {
+					Item i = new Item(line, in);
+					addItem(i);
+				} catch(Exception e) {
+					msg.append(e.getMessage());
+					msg.append('\n');
+				}
+			}
+			
+			if (msg.length() > 0) {
+				Tools.message(msg.toString());
 			}
 		}
 		
